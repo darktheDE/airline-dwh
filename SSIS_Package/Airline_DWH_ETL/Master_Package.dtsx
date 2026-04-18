@@ -12,82 +12,30 @@
   DTS:ObjectName="Master_Package"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{F90FE04D-D604-4D95-B593-348B76A473DB}">
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{DB2B300A-A9BE-48E3-9EA1-9FA3DAA0605D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\load dim"
+      DTS:refId="Package\Load_Dim_Date_Time"
       DTS:CreationName="Microsoft.ExecutePackageTask"
-      DTS:Description="Execute Package Task"
-      DTS:DTSID="{A0A92919-6FB7-432E-8229-88A252C8C505}"
+      DTS:Description="Load_Dim_Date_Time"
+      DTS:DTSID="{FDE54F0B-0DD6-4DE9-9612-1D6B3557160A}"
       DTS:ExecutableType="Microsoft.ExecutePackageTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="load dim"
+      DTS:ObjectName="Load_Dim_Date_Time"
       DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
         <ExecutePackageTask>
           <UseProjectReference>True</UseProjectReference>
-          <PackageName>Load_Dimensions.dtsx</PackageName>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\load facts"
-      DTS:CreationName="Microsoft.ExecutePackageTask"
-      DTS:Description="Execute Package Task"
-      DTS:DTSID="{48CA1213-F3AD-4517-9C1D-CA144DE7B700}"
-      DTS:ExecutableType="Microsoft.ExecutePackageTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="load facts"
-      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <UseProjectReference>True</UseProjectReference>
-          <PackageName>Load_Facts.dtsx</PackageName>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\post processing"
-      DTS:CreationName="Microsoft.ExecutePackageTask"
-      DTS:Description="Execute Package Task"
-      DTS:DTSID="{A6686965-2BC5-4BC7-B0C5-18D6C0268C89}"
-      DTS:ExecutableType="Microsoft.ExecutePackageTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="post processing"
-      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <UseProjectReference>True</UseProjectReference>
-          <PackageName>Post_Processing.dtsx</PackageName>
+          <PackageName>Load_Dim_Date_Time.dtsx</PackageName>
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
-  <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint]"
-      DTS:CreationName=""
-      DTS:DTSID="{7B25B036-AD96-498C-A764-62088F806A19}"
-      DTS:From="Package\load dim"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint"
-      DTS:To="Package\load facts" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
-      DTS:CreationName=""
-      DTS:DTSID="{D064DE20-25F7-4DA5-8E3E-C45009F25613}"
-      DTS:From="Package\load facts"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 1"
-      DTS:To="Package\post processing" />
-  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -99,87 +47,11 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="119.5,42"
-          Id="Package\load dim"
-          TopLeft="149,113.5" />
-        <NodeLayout
-          Size="152,42"
-          Id="Package\post processing"
-          TopLeft="533,125.5" />
-        <NodeLayout
-          Size="191,42"
-          Id="Package\load facts"
-          TopLeft="289.5,186" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="240.75,155.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="144.25,30.5"
-              Start="0,0"
-              End="144.25,23">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,11.25" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,11.25"
-                    Point2="0,15.25"
-                    Point3="4,15.25" />
-                  <mssgle:LineSegment
-                    End="140.25,15.25" />
-                  <mssgle:CubicBezierSegment
-                    Point1="140.25,15.25"
-                    Point2="144.25,15.25"
-                    Point3="144.25,19.25" />
-                  <mssgle:LineSegment
-                    End="144.25,23" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="480.5,207">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="52.5,-60.5"
-              Start="0,0"
-              End="45,-60.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="22.25,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="22.25,0"
-                    Point2="26.25,0"
-                    Point3="26.25,-4" />
-                  <mssgle:LineSegment
-                    End="26.25,-56.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="26.25,-56.5"
-                    Point2="26.25,-60.5"
-                    Point3="30.25,-60.5" />
-                  <mssgle:LineSegment
-                    End="45,-60.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="183.5,42"
+          Id="Package\Load_Dim_Date_Time"
+          TopLeft="161,40" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
