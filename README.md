@@ -2,6 +2,8 @@
 
 This project implements a comprehensive Data Warehouse (DWH) system designed to analyze U.S. domestic flight performance integrated with technical aircraft registration data. By combining transactional flight data with the FAA Aircraft Registry, the system provides a 360-degree view of operational efficiency, financial impacts of delays, and asset maintenance lifecycles.
 
+![System Architecture](Docs/SysArch.png)
+
 ## 📌 Project Overview
 
 The aviation industry incurs billions of dollars in losses annually due to flight delays and cancellations. This project moves beyond simple descriptive statistics by implementing a multidimensional model that correlates flight logs with aircraft age, engine types, and manufacturer data.
