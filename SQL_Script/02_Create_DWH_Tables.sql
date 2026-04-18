@@ -76,13 +76,13 @@ CREATE TABLE dbo.Dim_Date (
 
     -- ATTRIBUTES – SCD Type 0 (never change)
     FullDateAlternateKey    DATE      NOT NULL,          -- Full calendar date
-    DayNumberOfWeek         TINYINT   NOT NULL,          -- 1=Mon ... 7=Sun (ISO)
-    DayNameOfWeek           NVARCHAR(10) NOT NULL,       -- "Thursday"
-    DayOfMonth              TINYINT   NOT NULL,          -- 1-31
-    MonthNumber             TINYINT   NOT NULL,          -- 1-12
-    MonthName               NVARCHAR(15) NOT NULL,       -- "March"
-    CalendarQuarter         TINYINT   NOT NULL,          -- 1-4
-    CalendarYear            SMALLINT  NOT NULL,          -- 2015
+    DayNumberOfWeek         SMALLINT   NOT NULL,          -- Changed from TINYINT to avoid -1 overflow
+    DayNameOfWeek           NVARCHAR(10) NOT NULL,
+    DayOfMonth              SMALLINT   NOT NULL,          -- Changed from TINYINT
+    MonthNumber             SMALLINT   NOT NULL,          -- Changed from TINYINT
+    MonthName               NVARCHAR(15) NOT NULL,
+    CalendarQuarter         SMALLINT   NOT NULL,          -- Changed from TINYINT
+    CalendarYear            SMALLINT   NOT NULL,
     IsWeekend               BIT       NOT NULL DEFAULT 0, -- 1=Saturday/Sunday
 
     -- AUDIT
@@ -133,9 +133,9 @@ CREATE TABLE dbo.Dim_Time (
 
     -- ATTRIBUTES – SCD Type 0
     TimeValue           CHAR(5)     NOT NULL,         -- "15:30"
-    HourNumber          TINYINT     NOT NULL,         -- 0-23
-    MinuteNumber        TINYINT     NOT NULL,         -- 0-59
-    TimePeriod          NVARCHAR(20) NOT NULL,        -- Early Morning/Morning/Afternoon/Evening/Night
+    HourNumber          SMALLINT    NOT NULL,         -- Changed from TINYINT to avoid -1 overflow
+    MinuteNumber        SMALLINT    NOT NULL,         -- Changed from TINYINT
+    TimePeriod          NVARCHAR(20) NOT NULL,
 
     -- AUDIT
     InsertAuditKey      INT         NOT NULL DEFAULT -1,
@@ -425,11 +425,11 @@ CREATE TABLE dbo.Fact_Aircraft_Daily_Snapshot (
     InsertAuditKey              INT        NOT NULL DEFAULT -1,    -- FK -> Dim_Audit
 
     -- MEASURES
-    Daily_Flight_Count          TINYINT    NOT NULL DEFAULT 0,    -- COUNT(*) per tail per day
-    Daily_Air_Time              SMALLINT   NOT NULL DEFAULT 0,    -- SUM(AIR_TIME) per tail per day (mins)
+    Daily_Flight_Count          SMALLINT    NOT NULL DEFAULT 0,    -- Changed from TINYINT
+    Daily_Air_Time              SMALLINT    NOT NULL DEFAULT 0,    -- SUM(AIR_TIME) per tail per day (mins)
 
     -- Asset Health KPI
-    Tech_Incident_Count         TINYINT    NOT NULL DEFAULT 0,    -- SUM(CASE WHEN CARRIER_DELAY>0 THEN 1 ELSE 0 END)
+    Tech_Incident_Count         SMALLINT    NOT NULL DEFAULT 0,    -- Changed from TINYINT
                                                                    -- Proxy: carrier-delay as tech incident
 
     -- Maintenance planning KPI (window function in Staging)
@@ -493,7 +493,7 @@ CREATE TABLE dbo.Fact_Turnaround_Efficiency (
     Actual_Departure_Time   DATETIME      NULL,                   -- Milestone 2: Outbound departure (updated)
 
     -- MEASURES
-    Planned_Turnaround_Mins TINYINT       NOT NULL DEFAULT 45,   -- Business rule: 45 min standard
+    Planned_Turnaround_Mins SMALLINT      NOT NULL DEFAULT 45,   -- Changed from TINYINT
     Actual_Turnaround_Mins  SMALLINT      NULL,                  -- DATEDIFF(min, Arrival, Departure)
     Turnaround_Variance_Mins SMALLINT     NULL,                  -- Actual - Planned (positive = bottleneck)
     Is_Bottleneck           BIT           NOT NULL DEFAULT 0,    -- 1 if Variance > 30 mins
@@ -563,7 +563,7 @@ SELECT
     t.name          AS TableName,
     s.name          AS [Schema],
     t.create_date   AS CreatedAt,
-    p.rows          AS RowCount
+    p.rows          AS [RowCount]
 FROM sys.tables t
 JOIN sys.schemas s ON t.schema_id = s.schema_id
 JOIN sys.partitions p ON t.object_id = p.object_id
