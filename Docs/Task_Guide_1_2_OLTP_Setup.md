@@ -64,3 +64,13 @@ SELECT 'tb_Flights' as Tbl, COUNT(*) as Rows FROM dbo.tb_Flights;
 
 > [!TIP]
 > Nếu bảng `tb_Flights` vẫn trống (0 dòng), hãy kiểm tra xem file CSV có đang bị chương trình khác (Excel, WinRAR) mở và khóa lại không.
+
+---
+
+## 7. Nhật ký Thay đổi (Change Log)
+
+| Ngày | Người thực hiện | Nội dung thay đổi |
+| :--- | :--- | :--- |
+| 2026-04-18 | Kiến Hưng | Cấu hình lại toàn bộ đường dẫn tuyệt đối (Absolute Path) trong script SQL sang: `D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\...` |
+| 2026-04-18 | Kiến Hưng | Bổ sung file `README.md` trong thư mục `SQL_Script` hướng dẫn chạy script step-by-step. |
+

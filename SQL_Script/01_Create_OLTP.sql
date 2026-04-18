@@ -9,7 +9,7 @@
   Bước 3 - Inject dữ liệu bẩn để thực hành ETL
 
   TRUOC KHI CHAY: Dat 3 file CSV vào thư muc:
-    D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\
+    D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\
       airlines.csv
       airports.csv
       flights.csv   (~800MB)
@@ -45,8 +45,8 @@ CREATE TABLE dbo.tb_Airports (
     City          NVARCHAR(100)  NOT NULL,
     State         VARCHAR(2)     NOT NULL,
     Country       VARCHAR(3)     NOT NULL,
-    Latitude      FLOAT          NULL,
-    Longitude     FLOAT          NULL,
+    Latitude      DECIMAL(9,6)   NULL,
+    Longitude     DECIMAL(9,6)   NULL,
     Created_Date  DATETIME       NOT NULL DEFAULT GETDATE(),
     Updated_Date  DATETIME       NOT NULL DEFAULT GETDATE()
 );
@@ -123,7 +123,7 @@ CREATE TABLE #stg_Airlines (
 );
 
 BULK INSERT #stg_Airlines
-FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\airlines.csv'
+FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\airlines.csv'
 WITH (
     FIRSTROW        = 2,
     FIELDTERMINATOR = ',',
@@ -159,7 +159,7 @@ CREATE TABLE #stg_Airports (
 );
 
 BULK INSERT #stg_Airports
-FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\airports.csv'
+FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\airports.csv'
 WITH (
     FIRSTROW        = 2,
     FIELDTERMINATOR = ',',
@@ -175,8 +175,8 @@ SELECT
     LTRIM(RTRIM(City)),
     LTRIM(RTRIM(State)),
     LTRIM(RTRIM(Country)),
-    TRY_CAST(LTRIM(RTRIM(Latitude))  AS FLOAT),
-    TRY_CAST(LTRIM(RTRIM(Longitude)) AS FLOAT)
+    TRY_CAST(LTRIM(RTRIM(Latitude))  AS DECIMAL(9,6)),
+    TRY_CAST(LTRIM(RTRIM(Longitude)) AS DECIMAL(9,6))
 FROM #stg_Airports
 WHERE LTRIM(RTRIM(ISNULL(IATA_Code,''))) <> '';
 
@@ -239,7 +239,7 @@ GO
 -- truoc khi compile lenh BULK INSERT + INSERT SELECT phia duoi
 
 BULK INSERT #stg_Flights
-FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\flights.csv'
+FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\flights.csv'
 WITH (
     FIRSTROW        = 2,
     FIELDTERMINATOR = ',',
@@ -445,11 +445,11 @@ GO
 
 -- 3. BULK INSERT vào Staging (Sửa đường dẫn nếu cần)
 BULK INSERT #stg_FAA_Master
-FROM 'D:\DW Project\airline-dwh\Data\faa-aircraft-registry\MASTER.txt'
+FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\faa-aircraft-registry\MASTER.txt'
 WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '0x0a', CODEPAGE = '65001', TABLOCK);
 
 BULK INSERT #stg_FAA_Ref
-FROM 'D:\DW Project\airline-dwh\Data\faa-aircraft-registry\ACFTREF.txt'
+FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\faa-aircraft-registry\ACFTREF.txt'
 WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '0x0a', CODEPAGE = '65001', TABLOCK);
 GO
 
