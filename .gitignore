@@ -1,2 +1,10 @@
 *.csv
 *.txt
+
+# Visual Studio / SSIS specific ignores
+.vs/
+*.user
+*.suo
+bin/
+obj/
+*.bidsHelper*
