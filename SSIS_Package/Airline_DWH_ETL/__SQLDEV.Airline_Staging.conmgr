@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:ObjectName="__SQLDEV.Airline_Staging"
   DTS:DTSID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}"
@@ -7,6 +7,6 @@
     <DTS:ConnectionManager
       DTS:ConnectRetryCount="1"
       DTS:ConnectRetryInterval="5"
-      DTS:ConnectionString="Data Source=.\SQLDEV;Initial Catalog=Airline_Staging;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Airline_DWH_ETL-{CF4880A4-97D0-4B56-A259-F73552DB41EC}.\SQLDEV.Airline_Staging;Auto Translate=False;" />
+      DTS:ConnectionString="Data Source=.;Initial Catalog=Airline_Staging;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Airline_DWH_ETL-{CF4880A4-97D0-4B56-A259-F73552DB41EC}.\SQLDEV.Airline_Staging;Auto Translate=False;" />
   </DTS:ObjectData>
 </DTS:ConnectionManager>
