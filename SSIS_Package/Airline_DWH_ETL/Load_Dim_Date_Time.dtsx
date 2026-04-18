@@ -1,0 +1,122 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/19/2026 12:29:10 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-ME92KU5Q"
+  DTS:CreatorName="LAPTOP-ME92KU5Q\QUI"
+  DTS:DTSID="{703EA0E4-AF02-4F43-ACC2-3E160ACFC975}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{EF4618AF-1C7B-4452-AB00-11CD70F10EA7}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Populate Dim_Date"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8D5281AC-7B2D-4E0A-BBBB-D096D3363DE9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate Dim_Date"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E672A47B-07CC-41F2-9F79-E987A337530C}"
+          SQLTask:SqlStatementSource="-- Bước 1: Xoa du lieu cu&#xA;DELETE FROM dbo.Dim_Date WHERE DateKey &lt;&gt; -1&#xA;&#xA;-- Bước 2: Khai bao bien&#xA;DECLARE @StartDate DATE = '2015-01-01'&#xA;DECLARE @EndDate DATE = '2015-12-31'&#xA;DECLARE @CurrentDate DATE = @StartDate&#xA;&#xA;-- Bước 3: Vong lap sinh du lieu&#xA;WHILE @CurrentDate &lt;= @EndDate&#xA;BEGIN&#xA;    INSERT INTO dbo.Dim_Date (&#xA;        DateKey, FullDateAlternateKey, DayNumberOfWeek, DayNameOfWeek, &#xA;        DayOfMonth, MonthNumber, MonthName, CalendarQuarter, CalendarYear, &#xA;        IsWeekend, InsertAuditKey&#xA;    )&#xA;    SELECT &#xA;        CAST(CONVERT(VARCHAR(8), @CurrentDate, 112) AS INT),&#xA;        @CurrentDate,&#xA;        DATEPART(WEEKDAY, @CurrentDate),&#xA;        DATENAME(WEEKDAY, @CurrentDate),&#xA;        DATEPART(DAY, @CurrentDate),&#xA;        DATEPART(MONTH, @CurrentDate),&#xA;        DATENAME(MONTH, @CurrentDate),&#xA;        DATEPART(QUARTER, @CurrentDate),&#xA;        DATEPART(YEAR, @CurrentDate),&#xA;        CASE WHEN DATEPART(WEEKDAY, @CurrentDate) IN (1, 7) THEN 1 ELSE 0 END,&#xA;        -1&#xA;&#xA;    SET @CurrentDate = DATEADD(DAY, 1, @CurrentDate)&#xA;END&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate Dim_Time"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{05E0ADD1-162F-4953-BBD4-6459D250FD30}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate Dim_Time"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E672A47B-07CC-41F2-9F79-E987A337530C}"
+          SQLTask:SqlStatementSource="-- Dọn dẹp dữ liệu cũ (trừ dòng Unknown -1)&#xA;DELETE FROM dbo.Dim_Time WHERE TimeKey &lt;&gt; -1;&#xA;&#xA;DECLARE @Hour INT = 0&#xA;DECLARE @Minute INT = 0&#xA;&#xA;WHILE @Hour &lt; 24&#xA;BEGIN&#xA;    SET @Minute = 0&#xA;    WHILE @Minute &lt; 60&#xA;    BEGIN&#xA;        INSERT INTO dbo.Dim_Time (TimeKey, TimeValue, HourNumber, MinuteNumber, TimePeriod, InsertAuditKey)&#xA;        SELECT &#xA;            (@Hour * 100) + @Minute, -- TimeKey: 1430&#xA;            RIGHT('0' + CAST(@Hour AS VARCHAR(2)), 2) + ':' + RIGHT('0' + CAST(@Minute AS VARCHAR(2)), 2), -- 14:30&#xA;            @Hour,&#xA;            @Minute,&#xA;            CASE &#xA;                WHEN @Hour &gt;= 6 AND @Hour &lt; 12 THEN 'Morning'&#xA;                WHEN @Hour &gt;= 12 AND @Hour &lt; 18 THEN 'Afternoon'&#xA;                WHEN @Hour &gt;= 18 AND @Hour &lt; 24 THEN 'Evening'&#xA;                ELSE 'Night'&#xA;            END,&#xA;            -1&#xA;&#xA;        SET @Minute = @Minute + 1&#xA;    END&#xA;    SET @Hour = @Hour + 1&#xA;END&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{66866087-FFF9-46CA-80E2-DB5D945C5376}"
+      DTS:From="Package\Populate Dim_Date"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Populate Dim_Time" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="169.5,42"
+          Id="Package\Populate Dim_Date"
+          TopLeft="208,55.5" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Populate Dim_Time"
+          TopLeft="490,82" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="377.5,76.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="112.5,26.5"
+              Start="0,0"
+              End="105,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="52.25,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="52.25,0"
+                    Point2="56.25,0"
+                    Point3="56.25,4" />
+                  <mssgle:LineSegment
+                    End="56.25,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="56.25,22.5"
+                    Point2="56.25,26.5"
+                    Point3="60.25,26.5" />
+                  <mssgle:LineSegment
+                    End="105,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
