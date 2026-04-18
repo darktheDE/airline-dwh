@@ -93,23 +93,44 @@ The **SSAS Multidimensional Cube** allows for complex analytical queries using *
 ## 📁 Repository Structure
 
 ```text
-├── SQL_Scripts/
-│   ├── 01_Create_OLTP.sql
-│   ├── 02_Create_DWH_StarSchema.sql
-│   └── 03_Procedures_and_Views.sql
-├── SSIS_Packages/
-│   ├── Master_Package.dtsx
-│   ├── Load_Dimensions.dtsx
-│   └── Load_Facts.dtsx
-├── SSAS_Cube/
-│   └── Airline_Analysis_Services/
-├── Dashboards/
-│   └── Executive_Operations_Dashboard.pbix
-├── Docs/
-│   ├── Detailed_Bus_Matrix.xlsx
-│   └── Project_Report_Final.pdf
+.
+├── Dashboard/              # Power BI reports and visualizations
+├── Data/                   # Raw datasets (Not tracked in Git, manually placed)
+│   ├── 2015-flight-delays-and-cancellations/
+│   │   ├── airlines.csv
+│   │   ├── airports.csv
+│   │   └── flights.csv
+│   └── faa-aircraft-registry/
+│       ├── ACFTREF.txt
+│       ├── MASTER.txt
+│       └── ardata.pdf
+├── Docs/                   # Project documentation and architecture diagrams
+├── SQL_Script/             # DDL/DML scripts for OLTP and DWH layers
+├── SSAS_Cube/              # Analysis Services project files
+├── SSIS_Package/           # Integration Services ETL packages
 └── README.md
 ```
+
+## 📥 Data Preparation
+
+To run this project, you need to download the datasets and place them in the correct directory.
+
+### 1. Download Links:
+*   **Main Dataset (2015 Flights):** [Kaggle - 2015 Flight Delays and Cancellations](https://www.kaggle.com/datasets/usdot/flight-delays)
+*   **Asset Registry (FAA):** [FAA - Releasable Aircraft Download](https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download)
+
+### 2. Manual Placement Instruction:
+Extract and place the downloaded files into the following directories:
+
+*   **Flight Data:** `Data/2015-flight-delays-and-cancellations/`
+    *   `airlines.csv`
+    *   `airports.csv`
+    *   `flights.csv`
+*   **FAA Registry:** `Data/faa-aircraft-registry/`
+    *   `ACFTREF.txt`
+    *   `MASTER.txt`
+    *   `ardata.pdf`
+
 
 ## 👥 Team Contribution
 
