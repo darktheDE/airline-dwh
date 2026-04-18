@@ -4,7 +4,10 @@
 
 **Step-by-Step (Các bước thực hiện):**
 
-* **Bước 1 (Tạo Staging DB):** Tạo Database Airline_Staging. Tạo các bảng y hệt OLTP nhưng **kiểu dữ liệu 100% là NVARCHAR/VARCHAR** và **KHÔNG có Khóa chính (PK/FK)**. (Giải thích: Để hứng dữ liệu thô bị lỗi mà không làm sập pipeline SSIS).
+* **Bước 1 (Tạo Staging DB):** Tạo Database `Airline_Staging`. 
+    * Thiết kế các bảng: `stg_Airlines`, `stg_Airports`, `stg_Aircraft_Master`, `stg_Flights`.
+    * **Đặc tả kỹ thuật:** Toàn bộ kiểu dữ liệu là `NVARCHAR(MAX)` hoặc `NVARCHAR(4000)`, KHÔNG có Khóa chính (PK), Khóa ngoại (FK) hay ràng buộc Check.
+    * **Mục tiêu:** Làm vùng đệm (Landing Zone) an toàn cho SSIS, tránh lỗi truncation hoặc lỗi kiểu dữ liệu khi nạp từ OLTP. Đây cũng là nơi tính toán các logic phức tạp (ví dụ: `Turnaround Duration` bằng lệnh `LAG()`) trước khi nạp vào Fact.
 
 * **Bước 2 (Tạo DWH DB):** Tạo Database Airline_DWH.
 
