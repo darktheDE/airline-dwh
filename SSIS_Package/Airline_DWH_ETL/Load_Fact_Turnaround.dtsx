@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/19/2026 1:00:00 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SQLDEV"
+  DTS:CreatorName="SQLDEV\ANTIGRAVITY"
+  DTS:DTSID="{B2C3D4E5-F6A7-8901-ABCD-34567890ABCD}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Load_Fact_Turnaround"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{A5B6C7D8-E9F0-4123-A456-B789C0D1E2F3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <!-- 1. Exec Stored Procedure -->
+    <DTS:Executable
+      DTS:refId="Package\SQL - Extract Turnaround to Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{C1D2E3F4-A5B6-7890-B1C2-D3E4F5A6B7C8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Extract Turnaround to Staging">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}"
+          SQLTask:SqlStatementSource="EXEC dbo.usp_ExtractTurnaround" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <!-- 2. SQL - Load Fact from Staging -->
+    <DTS:Executable
+      DTS:refId="Package\SQL - Load Fact Turnaround Efficiency"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{D2E3F4A5-B6C7-8901-C2D3-E4F5A6B7C8D9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Load Fact Turnaround Efficiency">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E672A47B-07CC-41F2-9F79-E987A337530C}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.Fact_Turnaround_Efficiency;&#xA;&#xA;INSERT INTO dbo.Fact_Turnaround_Efficiency (&#xA;    ArrivalDateKey, DepartureDateKey, ArrivalTimeKey, DepartureTimeKey, &#xA;    AirportKey, AircraftKey, AirlineKey, &#xA;    BKInboundFlightID, BKOutboundFlightID, &#xA;    Actual_Arrival_Time, Actual_Departure_Time, &#xA;    Actual_Turnaround_Mins, Turnaround_Variance_Mins, Is_Bottleneck&#xA;)&#xA;SELECT &#xA;    dArr.DateKey, dDep.DateKey, &#xA;    (DATEPART(HOUR, stg.Inbound_Arrival_Time) * 100 + DATEPART(MINUTE, stg.Inbound_Arrival_Time)) AS ArrTimeK,&#xA;    (DATEPART(HOUR, stg.Outbound_Departure_Time) * 100 + DATEPART(MINUTE, stg.Outbound_Departure_Time)) AS DepTimeK,&#xA;    ISNULL(ap.AirportKey, -1), ISNULL(ac.AircraftKey, -1), ISNULL(al.AirlineKey, -1),&#xA;    stg.Inbound_Flight_BK, stg.Outbound_Flight_BK,&#xA;    stg.Inbound_Arrival_Time, stg.Outbound_Departure_Time,&#xA;    DATEDIFF(MINUTE, stg.Inbound_Arrival_Time, stg.Outbound_Departure_Time),&#xA;    DATEDIFF(MINUTE, stg.Inbound_Arrival_Time, stg.Outbound_Departure_Time) - 45,&#xA;    CASE WHEN (DATEDIFF(MINUTE, stg.Inbound_Arrival_Time, stg.Outbound_Departure_Time) - 45) &gt; 30 THEN 1 ELSE 0 END&#xA;FROM Airline_Staging.dbo.stg_Turnaround stg&#xA;JOIN Dim_Date dArr ON CAST(stg.Inbound_Arrival_Time AS DATE) = dArr.FullDateAlternateKey&#xA;JOIN Dim_Date dDep ON CAST(stg.Outbound_Departure_Time AS DATE) = dDep.FullDateAlternateKey&#xA;LEFT JOIN Dim_Airport ap ON stg.Turnaround_Airport = ap.BKAirportCode&#xA;LEFT JOIN Dim_Aircraft ac ON stg.Tail_Number = ac.BKTailNumber AND ac.Is_Active = 1&#xA;LEFT JOIN Dim_Airline al ON stg.Airline_Code = al.BKAirlineCode" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:DTSID="{E1F2A3B4-C5D6-7890-ABCD-1234567890ED}"
+      DTS:From="Package\SQL - Extract Turnaround to Staging"
+      DTS:To="Package\SQL - Load Fact Turnaround Efficiency" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>
