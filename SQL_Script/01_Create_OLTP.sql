@@ -122,8 +122,9 @@ CREATE TABLE #stg_Airlines (
     Airline_Name NVARCHAR(200)
 );
 
+-- TODO: UPDATE PATH - Change this path to point to your local 'airlines.csv' file
 BULK INSERT #stg_Airlines
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\airlines.csv'
+FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\airlines.csv'
 WITH (
     FIRSTROW        = 2,
     FIELDTERMINATOR = ',',
@@ -158,8 +159,9 @@ CREATE TABLE #stg_Airports (
     Longitude    VARCHAR(20)
 );
 
+-- TODO: UPDATE PATH - Change this path to point to your local 'airports.csv' file
 BULK INSERT #stg_Airports
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\airports.csv'
+FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\airports.csv'
 WITH (
     FIRSTROW        = 2,
     FIELDTERMINATOR = ',',
@@ -238,8 +240,9 @@ GO
 -- ^^^ GO o day bat buoc: SQL Server can biet #stg_Flights ton tai
 -- truoc khi compile lenh BULK INSERT + INSERT SELECT phia duoi
 
+-- TODO: UPDATE PATH - Change this path to point to your local 'flights.csv' file
 BULK INSERT #stg_Flights
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\flights.csv'
+FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\flights.csv'
 WITH (
     FIRSTROW        = 2,
     FIELDTERMINATOR = ',',
@@ -444,12 +447,14 @@ CREATE TABLE #stg_FAA_Ref (
 GO
 
 -- 3. BULK INSERT vào Staging (Sửa đường dẫn nếu cần)
+-- TODO: UPDATE PATH - Change this path to point to your local 'MASTER.txt' file
 BULK INSERT #stg_FAA_Master
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\faa-aircraft-registry\MASTER.txt'
+FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\MASTER.txt'
 WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '0x0a', CODEPAGE = '65001', TABLOCK);
 
+-- TODO: UPDATE PATH - Change this path to point to your local 'ACFTREF.txt' file
 BULK INSERT #stg_FAA_Ref
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\faa-aircraft-registry\ACFTREF.txt'
+FROM 'D:\DW Project\airline-dwh\Data\2015-flight-delays-and-cancellations\ACFTREF.txt'
 WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '0x0a', CODEPAGE = '65001', TABLOCK);
 GO
 
