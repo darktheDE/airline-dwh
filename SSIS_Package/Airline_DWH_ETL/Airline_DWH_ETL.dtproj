@@ -35,6 +35,8 @@
           <SSIS:Package SSIS:Name="Master_Package.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Load_Dim_Date_Time.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Load_Dim_Airport_Airline.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Load_Dim_Aircraft.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Load_Fact_Turnaround.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="__SQLDEV.Airline_OLTP.conmgr" />
@@ -580,10 +582,44 @@
                 <SSIS:Property SSIS:Name="Name">Load_Dim_Airport_Airline</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">10</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{85628D76-E294-48AB-8E26-7D0A75EE78B8}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Load_Dim_Aircraft.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{5B5D4AEF-70D9-4B15-A5B4-C0F37A3343F1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Load_Dim_Aircraft</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{4706C71E-0F6B-4469-99A2-7BB746B5A475}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Load_Fact_Turnaround.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{B2C3D4E5-F6A7-8901-ABCD-34567890ABCD}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Load_Fact_Turnaround</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{B2C3D4E5-F6A7-8901-BCDE-234567890ABC}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{A5B6C7D8-E9F0-4123-A456-B789C0D1E2F3}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
