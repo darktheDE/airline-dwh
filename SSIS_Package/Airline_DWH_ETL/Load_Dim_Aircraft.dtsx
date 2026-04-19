@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/19/2026 1:00:00 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SQLDEV"
+  DTS:CreatorName="SQLDEV\ANTIGRAVITY"
+  DTS:DTSID="{A2B3C4D5-E6F7-8901-ABCD-234567890ABC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Load_Dim_Aircraft"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="100"
+  DTS:VersionGUID="{7D5E92A4-B307-42A5-857E-FFAEE702B5E0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <!-- 1. Truncate Staging Aircraft -->
+    <DTS:Executable
+      DTS:refId="Package\SQL - Truncate Staging Aircraft"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{A7BBE8F3-2BA9-44C8-AF2F-CE8979D3D31C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Truncate Staging Aircraft">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{CF4880A4-97D0-4B56-A259-F73552DB41EC}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.stg_Aircraft_Master" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <!-- 2. SQL - Extract OLTP to Staging -->
+    <DTS:Executable
+      DTS:refId="Package\SQL - Extract OLTP to Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{9CBBE8F3-2BA9-44C8-AF2F-CE8979D3D31A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Extract OLTP to Staging">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{CF4880A4-97D0-4B56-A259-F73552DB41EC}"
+          SQLTask:SqlStatementSource="INSERT INTO Airline_Staging.dbo.stg_Aircraft_Master (Tail_Number, Manufacturer, Model_Name, Year_Manufactured, Engine_Type, Airline_Owner)&#xA;SELECT Tail_Number, Manufacturer, Model_Name, CAST(Year_Manufactured AS NVARCHAR(200)), Engine_Type, Airline_Owner&#xA;FROM Airline_OLTP.dbo.tb_Aircraft_Master" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <!-- 3. SQL - Load Dim_Aircraft SCD Type 2 -->
+    <DTS:Executable
+      DTS:refId="Package\SQL - Load Dim_Aircraft SCD Type 2"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{9CBBE8F3-2BA9-44C8-AF2F-CE8979D3D31B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Load Dim_Aircraft SCD Type 2">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E672A47B-07CC-41F2-9F79-E987A337530C}"
+          SQLTask:SqlStatementSource="-- 1. Nạp dữ liệu SIÊU TỐC bằng cách gom nhóm ngay tại nguồn&#xA;INSERT INTO AirlineDWH.dbo.Dim_Aircraft (BKTailNumber, Manufacturer, ModelName, YearManufactured, EngineType, AirlineOwner, Valid_From, Valid_To, Is_Active)&#xA;SELECT &#xA;    BKTailNumber, &#xA;    MAX(Manufacturer), &#xA;    MAX(ModelName), &#xA;    MAX(Year_M), &#xA;    MAX(EngineType), &#xA;    MAX(AirlineOwner), &#xA;    CAST(GETDATE() AS DATE), &#xA;    '9999-12-31', &#xA;    1&#xA;FROM (&#xA;    SELECT &#xA;        LEFT(ISNULL(Tail_Number, ''), 10) AS BKTailNumber,&#xA;        LEFT(ISNULL(Manufacturer, 'Unknown'), 50) AS Manufacturer,&#xA;        LEFT(ISNULL(Model_Name, 'Unknown'), 50) AS ModelName,&#xA;        TRY_CAST(Year_Manufactured AS SMALLINT) AS Year_M,&#xA;        LEFT(ISNULL(Engine_Type, 'Unknown'), 30) AS EngineType,&#xA;        LEFT(ISNULL(Airline_Owner, 'UN'), 2) AS AirlineOwner&#xA;    FROM Airline_Staging.dbo.stg_Aircraft_Master&#xA;    WHERE Tail_Number IS NOT NULL AND Tail_Number &lt;&gt; ''&#xA;) AS src&#xA;GROUP BY BKTailNumber;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:DTSID="{F1A2B3C4-D5E6-7890-ABCD-67890ABCDEF1}"
+      DTS:From="Package\SQL - Truncate Staging Aircraft"
+      DTS:To="Package\SQL - Extract OLTP to Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:DTSID="{F1A2B3C4-D5E6-7890-ABCD-67890ABCDEF2}"
+      DTS:From="Package\SQL - Extract OLTP to Staging"
+      DTS:To="Package\SQL - Load Dim_Aircraft SCD Type 2" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>
