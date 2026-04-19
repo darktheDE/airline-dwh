@@ -18,7 +18,8 @@ GO
 
 CREATE TABLE dbo.ETL_Watermark (
     TableName      VARCHAR(100) NOT NULL,
-    Last_Load_Date DATETIME     NOT NULL,
+    Last_Load_Time DATETIME     NOT NULL,
+    Last_Updated   DATETIME     NULL,
     CONSTRAINT PK_ETL_Watermark PRIMARY KEY (TableName)
 );
 GO
@@ -27,11 +28,11 @@ GO
 -- Sử dụng mốc 1900-01-01 để lần đầu tiên chạy SSIS sẽ kéo toàn bộ dữ liệu lịch sử.
 -- Map tên bảng theo thực tế schema đã tạo trong 02_Create_DWH_Tables.sql
 
-INSERT INTO dbo.ETL_Watermark (TableName, Last_Load_Date)
+INSERT INTO dbo.ETL_Watermark (TableName, Last_Load_Time, Last_Updated)
 VALUES 
-    ('Fact_Flight_Transaction',      '1900-01-01'),
-    ('Fact_Aircraft_Daily_Snapshot', '1900-01-01'),
-    ('Fact_Turnaround_Efficiency',   '1900-01-01');
+    ('Fact_Flight_Transaction',      '1900-01-01', NULL),
+    ('Fact_Aircraft_Daily_Snapshot', '1900-01-01', NULL),
+    ('Fact_Turnaround_Efficiency',   '1900-01-01', NULL);
 GO
 
 PRINT 'OK: Bảng ETL_Watermark đã được thiết lập với mốc 1900-01-01.';

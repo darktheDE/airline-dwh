@@ -121,3 +121,117 @@ Quay lại màn hình **Control Flow**, kéo thêm 1 **Execute SQL Task** đặt
     ```sql
     SELECT COUNT(*) FROM Fact_Flight_Transaction
     ```
+
+---
+
+## 7. Troubleshooting (Nhật ký xử lý lỗi thực thi)
+
+Trong quá trình thực thi Package `Load_Fact_Flight_Transaction.dtsx`, có thể gặp phải một số lỗi phổ biến dựa trên thực tế dữ liệu. Dưới đây là phân tích và cách khắc phục:
+
+### Lỗi 1: Vi phạm ràng buộc NOT NULL (Integrity Constraints)
+*   **Hiện tượng / Log báo lỗi**: 
+    `The value violated the integrity constraints for the column.` trên các cột delay, hệ thống báo `not subsequently used` ở Derived Column.
+*   **Nguyên nhân**: 
+    Trong **OLE DB Destination**, các cột gốc từ source (`Departure_Delay`, `Arrival_Delay` - có thể chứa gía trị `NULL`) đang được map trực tiếp vào các cột `NOT NULL` của bảng Fact thay vì sử dụng các cột đã được thay thế `NULL` bằng `0` (như `Dep_Delay_Mins`) từ component **DC - Replace NULLs**.
+*   **Cách khắc phục**:
+    Mở component **OLE DB Destination**, vào phần **Mappings**. Break kết nối của các cột gốc có khả năng chứa NULL và map lại bằng những cột sinh ra từ Data Flow `DC - Replace NULLs` (Map đúng tên `_Mins`).
+
+### Lỗi 2: Vi phạm khóa ngoại (Foreign Key Constraint) với Dim_Time
+*   **Hiện tượng / Log báo lỗi**:
+    Lỗi Insert: `conflicted with the FOREIGN KEY constraint "FK_FFT_ArrTime" ... table "dbo.Dim_Time", column 'TimeKey'.`
+*   **Nguyên nhân**:
+    Tiến trình ETL load thành công phần lớn data nhưng sẽ báo lỗi fail do trong raw dataset (từ Kaggle), một số chuyến bay cất/hạ cánh lúc nửa đêm mang giá trị giờ là `2400`. Trong khi đó, bảng thời gian `Dim_Time` chỉ được giới hạn từ `0` (00:00) đến `2359` (23:59). Khi SSIS map giá trị key `2400`, nó không tìm thấy trong dimension nên gây ra lỗi Foreign Key.
+*   **Cách khắc phục**:
+    Gắn thêm giá trị đại diện cho nửa đêm (`2400`) vào bảng `Dim_Time` trong SQL Server bằng script sau để không cần sửa code bên trong SSIS:
+    ```sql
+    USE AirlineDWH;
+    GO
+    IF NOT EXISTS (SELECT 1 FROM dbo.Dim_Time WHERE TimeKey = 2400)
+    BEGIN
+        INSERT INTO dbo.Dim_Time (TimeKey, TimeValue, HourNumber, MinuteNumber, TimePeriod, InsertAuditKey)
+        VALUES (2400, '24:00', 0, 0, 'Midnight', -1);
+    END
+    GO
+    ```
+
+### Lỗi 3: Chạy SSIS báo thành công (tích xanh) nhưng OLE DB Destination ghi 0 dòng
+*   **Hiện tượng / Log báo lỗi**: 
+    Data Flow chạy thành công, không báo lỗi, nhưng log hiển thị: `"OLE DB Destination" wrote 0 rows`. Trong SSMS, bảng Fact vẫn rỗng (`Fact_Count = 0`).
+*   **Nguyên nhân**: 
+    Do cơ chế Incremental Load đang lưu mốc thời gian (Watermark) sai lệch. Trong quá trình Debug, bạn có thể đã `TRUNCATE` bảng Fact nhưng lại quên reset mốc thời gian trong bảng `ETL_Watermark`. Kết quả là câu lệnh SQL ở Source (`WHERE Updated_Date > ?`) bị khớp với ngày hiện tại (hoặc ngày quét cuối cùng), dẫn đến truy xuất ra 0 dòng dữ liệu mới.
+*   **Cách khắc phục**:
+    Chạy đoạn SQL sau để reset Watermark:
+    ```sql
+    UPDATE dbo.ETL_Watermark 
+    SET Last_Load_Time = '1900-01-01' 
+    WHERE TableName = 'Fact_Flight_Transaction';
+    ```
+
+### Lỗi 4: SSIS báo lỗi "Attempt to find the input column named... failed" trong Derived Column
+*   **Hiện tượng / Log báo lỗi**:
+    `Attempt to find the input column named "Air_Time" failed with error code 0xC0010009`.
+*   **Nguyên nhân**:
+    Hàm `REPLACENULL(Air_Time, 0)` tìm kiếm đến cột `Air_Time`, nhưng cột này lại chưa được tích chọn ở component lấy dữ liệu (OLE DB Source). Do đó luồng Pipeline không hề có chứa cột nào mang tên này.
+*   **Cách khắc phục**:
+    1. Mở lại khối **OLE DB Source** (`SRC - Flights Incremental`).
+    2. Chuyển sang thẻ **Columns** ở bên trái.
+    3. Tìm và đánh dấu tick `[v]` vào những cột đang bị thiếu (VD: tick vào `Air_Time`).
+    4. Quay lại mở hộp thoại Derived Column, bung thư mục **Columns** (góc trên bên trái) để xem danh sách. Nếu cột đã hiện, hãy kéo/thả thủ công vào biểu thức để phòng lỗi gõ sai chính tả.
+
+### Lỗi 5: Cảnh báo lệch kiểu Data Type (double-precision float vs smallint) và trùng tên cột
+*   **Hiện tượng / Log báo lỗi**: 
+    SSIS hiện thông báo nền vàng: `Multiple derived columns are found with the same name: 'NAS_Delay_Mins'`. Hoặc các Data Type sinh ra bị gắn mác `double-precision float [DT_R8]` mặc dù database đang chờ nhận kiểu số nguyên `smallint`. Bản thân logic rẽ nhánh gán trị biểu thức `Air_Time_Mins = REPLACENULL(NAS_Delay_Mins, 0)` bị sai logic nghiệp vụ.
+*   **Nguyên nhân**:
+    - Nhấn chọn <add as new column> hai lần với chung một tên đích (`NAS_Delay_Mins`).
+    - Viết nhầm mã logic của một column này sử dụng thông số ngắt của column kia (nhầm Delay cho Time).
+    - Lấy cấu trúc hàm `REPLACENULL(Col, 0)`, SSIS tự hiểu ngầm là `float/double`.
+*   **Cách khắc phục**:
+    - Click phải chuột ở giao diện của dòng trùng, chọn **Delete Row**.
+    - Sửa lại nguồn đúng biểu thức (VD: Sửa tên nguồn cho Air Time thành `REPLACENULL(Air_Time, 0)`).
+    - Cực kỳ khuyến nghị: Chủ động ép kiểu dữ liệu ngay tại đây (Cast). Gắn kèm `(DT_I2)` vào trước để đồng nhất với `smallint` ở SQL Server.
+      Cú pháp chuẩn: `(DT_I2)REPLACENULL(Air_Time, 0)` hoặc `(DT_I2)REPLACENULL(Arrival_Delay, 0)`.
+    - Riêng với Derived `Is_Delayed` (boolean), phải bọc chặt `NULL` trước khi so sánh: 
+      `REPLACENULL(Arrival_Delay, 0) >= 15 ? (DT_BOOL)1 : (DT_BOOL)0`.
+
+### Lỗi 6: Vi phạm ràng buộc khóa ngoại (Foreign Key) với Dim_Audit
+*   **Hiện tượng / Log báo lỗi**:
+    `The MERGE statement conflicted with the FOREIGN KEY constraint "FK_Dim_Airport_InsAudit". The conflict occurred in database "AirlineDWH", table "dbo.Dim_Audit", column 'AuditKey'.`
+*   **Nguyên nhân**:
+    Trong các script `MERGE` (như ở `Dim_Airport`, `Dim_Airline`), chúng ta đang gán cứng giá trị `InsertAuditKey = -2` hoặc `UpdateAuditKey = -2` để đánh dấu các dòng được xử lý bởi logic Task 6. Tuy nhiên, bảng `Dim_Audit` mặc định chỉ được khởi tạo với khóa `-1` (Unknown), dẫn đến việc SQL Server từ chối ghi dữ liệu vì không tìm thấy khóa `-2`.
+*   **Cách khắc phục**:
+    Thêm bản ghi Audit gán cho khóa `-2` vào bảng `Dim_Audit` để thỏa mãn ràng buộc khóa ngoại:
+    ```sql
+    USE AirlineDWH;
+    GO
+    SET IDENTITY_INSERT dbo.Dim_Audit ON;
+    IF NOT EXISTS (SELECT 1 FROM dbo.Dim_Audit WHERE AuditKey = -2)
+    BEGIN
+        INSERT INTO dbo.Dim_Audit (AuditKey, ETL_Package, ETL_RunDate, ETL_RowsInserted, ETL_RowsUpdated)
+        VALUES (-2, 'Manual/Task6_SCD1', GETDATE(), 0, 0);
+    END
+    SET IDENTITY_INSERT dbo.Dim_Audit OFF;
+    GO
+    ```
+    Đồng thời, cập nhật lại script `02_Create_DWH_Tables.sql` để đảm bảo khi khởi tạo lại DWH, hệ thống sẽ tự động có sẵn khóa này.
+
+---
+
+## 8. Nhật ký triển khai và Sửa lỗi hệ thống (Vận hành)
+
+Dưới đây là ghi chép các lỗi phát sinh trong quá trình triển khai thực tế trên môi trường Lab và cách đã xử lý để đảm bảo luồng dữ liệu thông suốt:
+
+| Ngày | Vấn đề phát sinh | Nguyên nhân | Giải pháp xử lý |
+| :--- | :--- | :--- | :--- |
+| 19/04 | Lỗi "Invalid column name 'Last_Load_Time'" | Database dùng tên `Last_Load_Date` nhưng SSIS Package gọi `Last_Load_Time`. | Đã chạy lại Script SQL để tái cấu trúc bảng `ETL_Watermark` khớp với SSIS. |
+| 19/04 | Lỗi "read-only column" tại Destination | Chọn nhầm Destination trỏ ngược lại database `OLTP` (có cột Identity) thay vì trỏ tới `Staging`. | Chỉnh lại Connection Manager của OLE DB Destination về đúng database `Airline_Staging`. |
+| 19/04 | Lỗi Unicode conversion (IATA_Code) | Source là `Varchar` nhưng Staging là `NVarchar`. | Sử dụng `CAST(column AS NVARCHAR)` ngay tại câu lệnh SQL ở Source để không cần dùng component Data Conversion. |
+| 19/04 | Staging trống dữ liệu (0 rows) | Task Extract bị lỗi/trống làm luồng nạp DWH không có đầu vào. | Đã nạp "mồi" dữ liệu bằng SQL script để thông luồng nạp DWH và sửa lại các task Extract bị hỏng. |
+| 19/04 | Thiếu luồng nạp cho Dim_Airline | Package `Load_Dim_Airport_Airline` chỉ mới có logic nạp cho Airport. | Cần bổ sung thêm 1 Data Flow Task riêng hoặc tích hợp cùng SCD cho bảng Airline. |
+
+### 💡 Bài học kinh nghiệm:
+1.  **Kiểm tra Connection Manager:** Luôn đảm bảo OLE DB Source trỏ về `OLTP` và OLE DB Destination trỏ về `Staging`/`DWH`.
+2.  **Đồng bộ Metadata:** Nếu đổi Schema ở SQL Server, phải vào lại SSIS nhấn **Refresh** hoặc mở lại Mapping để package nhận diện lại cột.
+3.  **Thứ tự thực hiện:** Chạy thử từng bước (Extract -> Staging, rồi mới Staging -> DWH) để dễ dàng cô lập lỗi.
+
+
+
