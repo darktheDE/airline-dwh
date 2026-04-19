@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="4/19/2026 3:19:59 PM"
@@ -12,8 +12,8 @@
   DTS:ObjectName="Load_Fact_Flight_Transaction"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="21"
-  DTS:VersionGUID="{E9E6C122-96B3-4FC4-88AF-B66992FCFFA7}">
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{AF0C5A92-3D75-4F6C-9EC5-B677949FD44E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -100,6 +100,16 @@
                       cachedDataType="i4"
                       cachedName="Flight_Number"
                       lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Number]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Scheduled_Departure]"
+                      cachedDataType="i4"
+                      cachedName="Scheduled_Departure"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Departure]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Scheduled_Arrival]"
+                      cachedDataType="i4"
+                      cachedName="Scheduled_Arrival"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Arrival]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -125,13 +135,13 @@
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Expression"
-                          name="Expression">[ISNULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]}) ? (DT_BOOL)0 : (#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]} &gt;= 15 ? (DT_BOOL)1 : (DT_BOOL)0)</property>
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]},0) &gt;= 15 ? (DT_BOOL)1 : (DT_BOOL)0</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Friendly Expression"
                           expressionType="Notify"
-                          name="FriendlyExpression">ISNULL(Arrival_Delay) ? (DT_BOOL)0 : (Arrival_Delay &gt;= 15 ? (DT_BOOL)1 : (DT_BOOL)0)</property>
+                          name="FriendlyExpression">REPLACENULL(Arrival_Delay,0) &gt;= 15 ? (DT_BOOL)1 : (DT_BOOL)0</property>
                       </properties>
                     </outputColumn>
                     <outputColumn
@@ -200,6 +210,50 @@
                           description="Derived Column Friendly Expression"
                           expressionType="Notify"
                           name="FriendlyExpression">(DT_WSTR,30)(Airline_Code + "-" + (DT_WSTR,10)Flight_Number)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DepTimeKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DepTimeKey]"
+                      name="DepTimeKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I2)[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Departure]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I2)REPLACENULL(Scheduled_Departure,-1)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[ArrTimeKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[ArrTimeKey]"
+                      name="ArrTimeKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I2)[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Arrival]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I2)REPLACENULL(Scheduled_Arrival,-1)</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -513,13 +567,13 @@
                   description="Specifies the SQL statement that generates the lookup table."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT AircraftKey, BKTailNumber FROM Dim_Aircraft WHERE Is_Active = 1</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT AircraftKey, BKTailNumber, Valid_From, ISNULL(Valid_To, '9999-12-31') AS Valid_To FROM Dim_Aircraft</property>
                 <property
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
                   expressionType="Notify"
                   name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT AircraftKey, BKTailNumber FROM Dim_Aircraft WHERE Is_Active = 1) [refTable]
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT AircraftKey, BKTailNumber, Valid_From, ISNULL(Valid_To, '9999-12-31') AS Valid_To FROM Dim_Aircraft) [refTable]
 where [refTable].[BKTailNumber] = ?</property>
                 <property
                   dataType="System.Int32"
@@ -551,12 +605,12 @@ where [refTable].[BKTailNumber] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="AircraftKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BKTailNumber" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="AircraftKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BKTailNumber" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Valid_From" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Valid_To" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\342:invalid};</property>
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Tail_Number]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -714,7 +768,7 @@ where [refTable].[BKAirlineCode] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\343:invalid};</property>
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\375:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -872,7 +926,7 @@ where [refTable].[BKAirportCode] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\344:invalid};</property>
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\376:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1030,7 +1084,7 @@ where [refTable].[BKAirportCode] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\345:invalid};</property>
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\377:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1289,18 +1343,6 @@ where [refTable].[BKAirportCode] = ?</property>
                       externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AircraftKey]"
                       lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Match Output].Columns[AircraftKey]" />
                     <inputColumn
-                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Scheduled_Departure]"
-                      cachedDataType="i4"
-                      cachedName="Scheduled_Departure"
-                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DepTimeKey]"
-                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Departure]" />
-                    <inputColumn
-                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Scheduled_Arrival]"
-                      cachedDataType="i4"
-                      cachedName="Scheduled_Arrival"
-                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ArrTimeKey]"
-                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Arrival]" />
-                    <inputColumn
                       refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Cancelled]"
                       cachedDataType="bool"
                       cachedName="Cancelled"
@@ -1332,6 +1374,18 @@ where [refTable].[BKAirportCode] = ?</property>
                       cachedName="Arr_Delay_Mins"
                       externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Arr_Delay_Mins]"
                       lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Arr_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DepTimeKey]"
+                      cachedDataType="i2"
+                      cachedName="DepTimeKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DepTimeKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DepTimeKey]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ArrTimeKey]"
+                      cachedDataType="i2"
+                      cachedName="ArrTimeKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ArrTimeKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[ArrTimeKey]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2394,21 +2448,13 @@ WHERE Updated_Date &gt; ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="136,42"
-          Id="Package\DFT - Load Fact Flight Transaction\LKP - Airline"
-          TopLeft="483,202" />
-        <NodeLayout
-          Size="170,42"
-          Id="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport"
-          TopLeft="656,122" />
-        <NodeLayout
-          Size="173,42"
-          Id="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs"
-          TopLeft="274,115" />
+          Size="199,42"
+          Id="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental"
+          TopLeft="35,111" />
         <NodeLayout
           Size="173,42"
           Id="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2)"
-          TopLeft="246.5,207.5" />
+          TopLeft="249.5,203.5" />
         <NodeLayout
           Size="195,42"
           Id="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport"
@@ -2418,34 +2464,88 @@ WHERE Updated_Date &gt; ?</property>
           Id="Package\DFT - Load Fact Flight Transaction\OLE DB Destination"
           TopLeft="37,211" />
         <NodeLayout
+          Size="173,42"
+          Id="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs"
+          TopLeft="274,115" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\DFT - Load Fact Flight Transaction\LKP - Airline"
+          TopLeft="483,202" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport"
+          TopLeft="656,122" />
+        <NodeLayout
           Size="137,42"
           Id="Package\DFT - Load Fact Flight Transaction\DC - Metrics"
           TopLeft="474,120" />
-        <NodeLayout
-          Size="199,42"
-          Id="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental"
-          TopLeft="35,111" />
         <EdgeLayout
-          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output2]"
-          TopLeft="483,225.75">
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[OLE DB Source Output]"
+          TopLeft="234,134">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-63.5,0"
+              EndConnector="40,0"
               Start="0,0"
-              End="-56,0">
+              End="32.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-56,0" />
+                    End="32.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output3]"
+          TopLeft="249.5,228.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-41.5,0"
+              Start="0,0"
+              End="-34,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-34,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-76.19138671875,5,96.3827734375,11.609375"
+              BoundingBox="-65.19138671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output2]"
+          TopLeft="483,223.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-60.5,0"
+              Start="0,0"
+              End="-53,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-53,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-74.69138671875,5,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2553,96 +2653,12 @@ WHERE Updated_Date &gt; ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DFT - Load Fact Flight Transaction.Paths[OLE DB Source Output]"
-          TopLeft="234,134">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="40,0"
-              Start="0,0"
-              End="32.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="32.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output3]"
-          TopLeft="246.5,230.25">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-38.5,0"
-              Start="0,0"
-              End="-31,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-31,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-63.69138671875,5,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Airline">
+    design-time-name="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental">
     <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:string">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[Dim_Airline]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:string">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:string">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[Dim_Airport]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:string">0</Value>
-      </Property>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>
@@ -2654,7 +2670,7 @@ WHERE Updated_Date &gt; ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2664,7 +2680,7 @@ WHERE Updated_Date &gt; ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2708,8 +2724,46 @@ WHERE Updated_Date &gt; ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental">
+    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Airline">
     <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Airline]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Airport]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>
