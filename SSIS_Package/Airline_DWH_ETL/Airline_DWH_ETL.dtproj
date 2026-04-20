@@ -38,7 +38,7 @@
           <SSIS:Package SSIS:Name="Load_Fact_Aircraft_Daily.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Load_Fact_Turnaround.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Load_Fact_Flight_Transaction.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="Load_Fact_Aircraft.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Load_Fact_Aircraft (1).dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="__SQLDEV.Airline_OLTP.conmgr" />
@@ -635,10 +635,27 @@
                 <SSIS:Property SSIS:Name="Name">Load_Fact_Flight_Transaction</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">15</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">27</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{63458249-B05E-45EF-95A0-246FD31FC788}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{AF0C5A92-3D75-4F6C-9EC5-B677949FD44E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Load_Fact_Aircraft (1).dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{CD308240-960F-441B-B1CC-3F6C431E98A3}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Load_Fact_Aircraft</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">35</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{6318CDDB-A1E1-4779-BA3D-EF53CE801839}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
