@@ -8,13 +8,23 @@
   Bước 2 - BULK INSERT từ CSV
   Bước 3 - Inject dữ liệu bẩn để thực hành ETL
 
-  TRUOC KHI CHAY: Dat 3 file CSV vào thư muc:
+  TRUOC KHI CHAY can vao line 117  và 124 de dat duong dan den thu muc data, vi du
     D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\
       airlines.csv
       airports.csv
       flights.csv   (~800MB)
 ===================================================================================
 */
+ 
+USE master;
+GO
+
+-- Tạo database nếu chưa tồn tại để tránh lỗi đăng nhập
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'Airline_OLTP')
+BEGIN
+    CREATE DATABASE Airline_OLTP;
+END
+GO
 
 USE Airline_OLTP;
 GO
@@ -109,28 +119,33 @@ PRINT 'Buoc 1 OK: 4 tables created.';
 GO
 
 
--- ============================================================
--- BUOC 2: BULK INSERT TU CSV
--- Su dung bang staging tam (#stg_*) vi BULK INSERT
--- khong cho phep chi dinh danh sach cot truc tiep
--- ROWTERMINATOR = '0x0a' xu ly ca \n lan \r\n (Windows/Linux CSV)
--- ============================================================
+-- >>> CẤU HÌNH ĐƯỜNG DẪN DỮ LIỆU <<<
+DECLARE @KaggleFolder NVARCHAR(500) = 'C:\D Dirve\HK2_25-26\Data_Warehouse\airline-dwh\Data\2015-flight-delays-and-cancellations\';
+DECLARE @FAAFolder    NVARCHAR(500) = 'C:\D Dirve\HK2_25-26\Data_Warehouse\airline-dwh\Data\faa-aircraft-registry\';
 
--- airlines.csv (IATA_CODE, AIRLINE)
+EXEC sp_set_session_context 'KaggleFolder', @KaggleFolder;
+EXEC sp_set_session_context 'FAAFolder',    @FAAFolder;
+GO
+
+-- 2.1 airlines.csv (IATA_CODE, AIRLINE)
 CREATE TABLE #stg_Airlines (
     IATA_Code    VARCHAR(10),
     Airline_Name NVARCHAR(200)
 );
 
+-- Nạp dữ liệu với đường dẫn động
+DECLARE @Path NVARCHAR(500) = CAST(SESSION_CONTEXT(N'KaggleFolder') AS NVARCHAR(500));
+DECLARE @sql NVARCHAR(MAX) = '
 BULK INSERT #stg_Airlines
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\airlines.csv'
+FROM ''' + @Path + 'airlines.csv''
 WITH (
     FIRSTROW        = 2,
-    FIELDTERMINATOR = ',',
-    ROWTERMINATOR   = '0x0a',
-    CODEPAGE        = '65001',
+    FIELDTERMINATOR = '','',
+    ROWTERMINATOR   = ''0x0a'',
+    CODEPAGE        = ''65001'',
     TABLOCK
-);
+);';
+EXEC (@sql);
 
 INSERT INTO dbo.tb_Airlines (IATA_Code, Airline_Name)
 SELECT
@@ -158,15 +173,19 @@ CREATE TABLE #stg_Airports (
     Longitude    VARCHAR(20)
 );
 
+-- Nạp dữ liệu với đường dẫn động
+DECLARE @Path NVARCHAR(500) = CAST(SESSION_CONTEXT(N'KaggleFolder') AS NVARCHAR(500));
+DECLARE @sql NVARCHAR(MAX) = '
 BULK INSERT #stg_Airports
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\airports.csv'
+FROM ''' + @Path + 'airports.csv''
 WITH (
     FIRSTROW        = 2,
-    FIELDTERMINATOR = ',',
-    ROWTERMINATOR   = '0x0a',
-    CODEPAGE        = '65001',
+    FIELDTERMINATOR = '','',
+    ROWTERMINATOR   = ''0x0a'',
+    CODEPAGE        = ''65001'',
     TABLOCK
-);
+);';
+EXEC (@sql);
 
 INSERT INTO dbo.tb_Airports (IATA_Code, Airport_Name, City, State, Country, Latitude, Longitude)
 SELECT
@@ -238,16 +257,20 @@ GO
 -- ^^^ GO o day bat buoc: SQL Server can biet #stg_Flights ton tai
 -- truoc khi compile lenh BULK INSERT + INSERT SELECT phia duoi
 
+-- Nạp dữ liệu với đường dẫn động
+DECLARE @Path NVARCHAR(500) = CAST(SESSION_CONTEXT(N'KaggleFolder') AS NVARCHAR(500));
+DECLARE @sql NVARCHAR(MAX) = '
 BULK INSERT #stg_Flights
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\2015-flight-delays-and-cancellations\flights.csv'
+FROM ''' + @Path + 'flights.csv''
 WITH (
     FIRSTROW        = 2,
-    FIELDTERMINATOR = ',',
-    ROWTERMINATOR   = '0x0a',
-    CODEPAGE        = '65001',
+    FIELDTERMINATOR = '','',
+    ROWTERMINATOR   = ''0x0a'',
+    CODEPAGE        = ''65001'',
     MAXERRORS       = 2000,
     TABLOCK
-);
+);';
+EXEC (@sql);
 GO
 
 -- Buoc B: Chuyen du lieu tu staging vao bang chinh (batch rieng)
@@ -443,14 +466,13 @@ CREATE TABLE #stg_FAA_Ref (
 );
 GO
 
--- 3. BULK INSERT vào Staging (Sửa đường dẫn nếu cần)
-BULK INSERT #stg_FAA_Master
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\faa-aircraft-registry\MASTER.txt'
-WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '0x0a', CODEPAGE = '65001', TABLOCK);
+-- 3. BULK INSERT vào Staging (Sửa đường dẫn động - Trỏ vào faa-aircraft-registry)
+DECLARE @Path NVARCHAR(500) = CAST(SESSION_CONTEXT(N'FAAFolder') AS NVARCHAR(500));
+DECLARE @sql1 NVARCHAR(MAX) = 'BULK INSERT #stg_FAA_Master FROM ''' + @Path + 'MASTER.txt'' WITH (FIRSTROW = 2, FIELDTERMINATOR = '','', ROWTERMINATOR = ''0x0a'', CODEPAGE = ''65001'', TABLOCK);';
+DECLARE @sql2 NVARCHAR(MAX) = 'BULK INSERT #stg_FAA_Ref FROM ''' + @Path + 'ACFTREF.txt'' WITH (FIRSTROW = 2, FIELDTERMINATOR = '','', ROWTERMINATOR = ''0x0a'', CODEPAGE = ''65001'', TABLOCK);';
 
-BULK INSERT #stg_FAA_Ref
-FROM 'D:\HCMUTE\HCMUTE_HK6\DataWarehouse\final\airline-dwh\Data\faa-aircraft-registry\ACFTREF.txt'
-WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR = '0x0a', CODEPAGE = '65001', TABLOCK);
+EXEC (@sql1);
+EXEC (@sql2);
 GO
 
 -- 4. Tổng hợp và INSERT vào bảng chính tb_Aircraft_Master
