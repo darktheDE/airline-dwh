@@ -60,7 +60,7 @@
           <ConfigurationSetting>
             <Id>Airline DWH</Id>
             <Name>Airline DWH</Name>
-            <Value xsi:type="xsd:string">Provider=MSOLEDBSQL.1;Data Source=LAPTOP-ME92KU5Q\SQLDEV;Integrated Security=SSPI;Initial Catalog=AirlineDWH</Value>
+            <Value xsi:type="xsd:string">Provider=MSOLEDBSQL.1;Data Source=KIENHUNG;Integrated Security=SSPI;Initial Catalog=AirlineDWH</Value>
           </ConfigurationSetting>
         </ConnectionMappings>
         <ConnectionSecurityMappings>

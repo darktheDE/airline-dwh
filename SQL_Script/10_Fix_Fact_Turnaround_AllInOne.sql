@@ -62,14 +62,14 @@ BEGIN
         -- Chuyển đổi Arrival_Time (INT kiểu HHmm) sang DATETIME sử dụng DATEFROMPARTS
         DATEADD(MINUTE, (f1.Arrival_Time % 100), 
             DATEADD(HOUR, (f1.Arrival_Time / 100), 
-                DATEFROMPARTS(f1.Flight_Year, f1.Flight_Month, f1.Flight_Day))),
+                CAST(DATEFROMPARTS(f1.Flight_Year, f1.Flight_Month, f1.Flight_Day) AS DATETIME))),
         
         -- Tạo Business Key cho Outbound Flight
         CONCAT(f2.Airline_Code, '-', f2.Flight_Number, '-', f2.Flight_Year, '-', f2.Flight_Month, '-', f2.Flight_Day) AS Outbound_Flight_BK,
         -- Chuyển đổi Departure_Time (INT kiểu HHmm) sang DATETIME
         DATEADD(MINUTE, (f2.Departure_Time % 100), 
             DATEADD(HOUR, (f2.Departure_Time / 100), 
-                DATEFROMPARTS(f2.Flight_Year, f2.Flight_Month, f2.Flight_Day))),
+                CAST(DATEFROMPARTS(f2.Flight_Year, f2.Flight_Month, f2.Flight_Day) AS DATETIME))),
         
         GETDATE()
     FROM Airline_OLTP.dbo.tb_Flights f1
