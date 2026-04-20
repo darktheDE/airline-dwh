@@ -12,8 +12,8 @@
   DTS:ObjectName="Load_Fact_Aircraft_Daily"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{CDFD1099-DC3B-4DE3-B4CB-569C3CF3A6B5}">
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{F49600A4-051D-46F3-8541-BD67D7C507D1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -488,15 +488,15 @@ where [refTable].[FullDateAlternateKey] = ?</property>
                       name="InsertAuditKey" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Daily_Flight_Count]"
-                      dataType="i2"
+                      dataType="i4"
                       name="Daily_Flight_Count" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Daily_Air_Time]"
-                      dataType="i2"
+                      dataType="i4"
                       name="Daily_Air_Time" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Tech_Incident_Count]"
-                      dataType="i2"
+                      dataType="i4"
                       name="Tech_Incident_Count" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cumulative_Flight_Hours]"
@@ -506,7 +506,7 @@ where [refTable].[FullDateAlternateKey] = ?</property>
                       scale="2" />
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Daily_Delay_Mins_Total]"
-                      dataType="i2"
+                      dataType="i4"
                       name="Daily_Delay_Mins_Total" />
                   </externalMetadataColumns>
                 </input>
@@ -562,20 +562,22 @@ where [refTable].[FullDateAlternateKey] = ?</property>
                   description="The SQL command to be executed."
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
-    S.Tail_Number,
+    MAX(S.Tail_Number) AS Tail_Number,
     S.Flight_Date,
-    S.Daily_Flight_Count,
-    S.Daily_Air_Time_Mins,
-    S.Daily_Airline_Delay_Mins,
-    S.Tech_Incident_Count,
-    -- Nếu không tìm thấy máy bay, gán mã -1 (Unknown) để không bị NULL
+    SUM(S.Daily_Flight_Count) AS Daily_Flight_Count,
+    SUM(S.Daily_Air_Time_Mins) AS Daily_Air_Time_Mins,
+    SUM(S.Daily_Airline_Delay_Mins) AS Daily_Airline_Delay_Mins,
+    SUM(S.Tech_Incident_Count) AS Tech_Incident_Count,
     ISNULL(A.AircraftKey, -1) AS AircraftKey, 
-    -- Nếu không tìm thấy chủ sở hữu, gán mã 'UN' (Unknown)
     ISNULL(A.AirlineOwner, 'UN') AS AirlineOwner 
 FROM Airline_Staging.dbo.Staging_Fact_Aircraft_Daily S
 LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A 
     ON S.Tail_Number = A.BKTailNumber
-    AND S.Flight_Date BETWEEN A.Valid_From AND A.Valid_To</property>
+    AND S.Flight_Date BETWEEN A.Valid_From AND A.Valid_To
+GROUP BY 
+    S.Flight_Date,
+    ISNULL(A.AircraftKey, -1),
+    ISNULL(A.AirlineOwner, 'UN')</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -873,11 +875,11 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="151.5,42"
+          Size="152,42"
           Id="Package\Data Flow Task"
           TopLeft="350,43" />
         <NodeLayout
-          Size="235.5,42"
+          Size="236,42"
           Id="Package\Extract and Aggregate to Staging"
           TopLeft="8.5,40" />
         <NodeLayout
@@ -937,7 +939,7 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="209.5,42"
+          Size="210,42"
           Id="Package\Data Flow Task\Lookup - Dim_Date"
           TopLeft="520.5,62" />
         <NodeLayout
@@ -951,7 +953,7 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
         <NodeLayout
           Size="150,42"
           Id="Package\Data Flow Task\OLE DB Source"
-          TopLeft="70.5,59" />
+          TopLeft="69.5,59" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Lookup Match Output]"
           TopLeft="625.25,104">
@@ -990,18 +992,18 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
-          TopLeft="220.5,81.5">
+          TopLeft="219.5,81.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="300,0"
+              EndConnector="301,0"
               Start="0,0"
-              End="292.5,0">
+              End="293.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="292.5,0" />
+                    End="293.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1043,7 +1045,7 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1053,7 +1055,7 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1079,7 +1081,7 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1089,7 +1091,7 @@ LEFT JOIN AirlineDWH.dbo.Dim_Aircraft A
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
