@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <DeploymentModel>Project</DeploymentModel>
   <ProductVersion>17.0.1010.2</ProductVersion>
@@ -37,6 +37,7 @@
           <SSIS:Package SSIS:Name="Load_Dim_Airport_Airline.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Load_Dim_Aircraft.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="Load_Fact_Turnaround.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Load_Fact_Flight_Transaction.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="__SQLDEV.Airline_OLTP.conmgr" />
@@ -71,7 +72,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=.;Initial Catalog=Airline_OLTP;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Airline_DWH_ETL-{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}.\SQLDEV.Airline_OLTP;Auto Translate=False;</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=KIENHUNG;Initial Catalog=Airline_OLTP;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Airline_DWH_ETL-{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}.\SQLDEV.Airline_OLTP;</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -175,7 +176,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">.</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">KIENHUNG</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -219,7 +220,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=.;Initial Catalog=Airline_Staging;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Airline_DWH_ETL-{CF4880A4-97D0-4B56-A259-F73552DB41EC}.\SQLDEV.Airline_Staging;Auto Translate=False;</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=KIENHUNG;Initial Catalog=Airline_Staging;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Airline_DWH_ETL-{CF4880A4-97D0-4B56-A259-F73552DB41EC}.\SQLDEV.Airline_Staging;</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -323,7 +324,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">.</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">KIENHUNG</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -367,7 +368,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=.;Initial Catalog=AirlineDWH;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Airline_DWH_ETL-{E672A47B-07CC-41F2-9F79-E987A337530C}.\SQLDEV.AirlineDWH;Auto Translate=False;</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=KIENHUNG;Initial Catalog=AirlineDWH;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Airline_DWH_ETL-{E672A47B-07CC-41F2-9F79-E987A337530C}.\SQLDEV.AirlineDWH;</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -471,7 +472,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">.</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">KIENHUNG</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -595,14 +596,14 @@
             </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="Load_Dim_Aircraft.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{5B5D4AEF-70D9-4B15-A5B4-C0F37A3343F1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{A2B3C4D5-E6F7-8901-ABCD-234567890ABC}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">Load_Dim_Aircraft</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">100</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{4706C71E-0F6B-4469-99A2-7BB746B5A475}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{7D5E92A4-B307-42A5-857E-FFAEE702B5E0}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -620,6 +621,23 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{A5B6C7D8-E9F0-4123-A456-B789C0D1E2F3}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">0</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Load_Fact_Flight_Transaction.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{6EFB38EB-F072-436F-8D41-EC2062735FE4}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Load_Fact_Flight_Transaction</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">15</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{63458249-B05E-45EF-95A0-246FD31FC788}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

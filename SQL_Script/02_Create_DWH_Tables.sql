@@ -1,7 +1,6 @@
 /*
 ===================================================================================
   FILE    : 02_Create_DWH_Tables.sql
-  PROJECT : Airline Flight Operations & Asset Health DWH
   AUTHOR  : Data Engineering Team (3 members)
   MODEL   : Kimball Lifecycle – Star Schema
   DATE    : 2026-04-18
@@ -58,6 +57,12 @@ GO
 SET IDENTITY_INSERT dbo.Dim_Audit ON;
 INSERT INTO dbo.Dim_Audit (AuditKey, ETL_Package, ETL_RunDate, ETL_RowsInserted, ETL_RowsUpdated)
 VALUES (-1, 'Unknown', '1900-01-01', 0, 0);
+
+-- Insert Task 6 SCD1 specialized audit member
+IF NOT EXISTS (SELECT 1 FROM dbo.Dim_Audit WHERE AuditKey = -2)
+    INSERT INTO dbo.Dim_Audit (AuditKey, ETL_Package, ETL_RunDate, ETL_RowsInserted, ETL_RowsUpdated)
+    VALUES (-2, 'Manual/Task6_SCD1', GETDATE(), 0, 0);
+
 SET IDENTITY_INSERT dbo.Dim_Audit OFF;
 GO
 

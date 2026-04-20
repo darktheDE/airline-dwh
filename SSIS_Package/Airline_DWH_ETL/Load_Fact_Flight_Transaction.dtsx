@@ -1,0 +1,2773 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/19/2026 3:19:59 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="KIENHUNG"
+  DTS:CreatorName="KIENHUNG\Kien Hung"
+  DTS:DTSID="{6EFB38EB-F072-436F-8D41-EC2062735FE4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1010.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Load_Fact_Flight_Transaction"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{AF0C5A92-3D75-4F6C-9EC5-B677949FD44E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B5C3AE26-129B-41E8-A44B-A08C700566F2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="LastLoadDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/1900</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EC7484A4-469A-460E-BF8E-7ECC704743DA}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="RowsInserted">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Load Fact Flight Transaction"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D004D7C7-1E50-4818-BB34-5DEC79565BB8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Load Fact Flight Transaction"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DC - Metrics"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Flight_Year]"
+                      cachedDataType="i2"
+                      cachedName="Flight_Year"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Year]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Flight_Month]"
+                      cachedDataType="ui1"
+                      cachedName="Flight_Month"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Month]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Flight_Day]"
+                      cachedDataType="ui1"
+                      cachedName="Flight_Day"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Day]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Arrival_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Arrival_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Cancelled]"
+                      cachedDataType="bool"
+                      cachedName="Cancelled"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancelled]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Airline_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="Airline_Code"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Code]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Flight_Number]"
+                      cachedDataType="i4"
+                      cachedName="Flight_Number"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Number]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Scheduled_Departure]"
+                      cachedDataType="i4"
+                      cachedName="Scheduled_Departure"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Departure]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input].Columns[Scheduled_Arrival]"
+                      cachedDataType="i4"
+                      cachedName="Scheduled_Arrival"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Arrival]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[Is_Delayed]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[Is_Delayed]"
+                      name="Is_Delayed"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]},0) &gt;= 15 ? (DT_BOOL)1 : (DT_BOOL)0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Arrival_Delay,0) &gt;= 15 ? (DT_BOOL)1 : (DT_BOOL)0</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[Estimated_Financial_Loss_USD]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[Estimated_Financial_Loss_USD]"
+                      name="Estimated_Financial_Loss_USD"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DECIMAL,2)(([REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]},0) * 75.0) + ((#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancelled]} ? 1 : 0) * 5000.0))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DECIMAL,2)((REPLACENULL(Arrival_Delay,0) * 75.0) + ((Cancelled ? 1 : 0) * 5000.0))</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DateKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DateKey]"
+                      name="DateKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Year]} * 10000) + (#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Month]} * 100) + #{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Day]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(Flight_Year * 10000) + (Flight_Month * 100) + Flight_Day</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[BKFlightID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="30"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[BKFlightID]"
+                      name="BKFlightID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_WSTR,30)(#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Code]} + "-" + (DT_WSTR,10)#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Number]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_WSTR,30)(Airline_Code + "-" + (DT_WSTR,10)Flight_Number)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DepTimeKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DepTimeKey]"
+                      name="DepTimeKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I2)[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Departure]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I2)REPLACENULL(Scheduled_Departure,-1)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[ArrTimeKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[ArrTimeKey]"
+                      name="ArrTimeKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I2)[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Arrival]},-1)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I2)REPLACENULL(Scheduled_Arrival,-1)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DC - Replace NULLs"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Air_System_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Air_System_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_System_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Security_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Security_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Security_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Airline_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Airline_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Late_Aircraft_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Late_Aircraft_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Late_Aircraft_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Weather_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Weather_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Weather_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Departure_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Departure_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Departure_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Arrival_Delay]"
+                      cachedDataType="r8"
+                      cachedName="Arrival_Delay"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input].Columns[Air_Time]"
+                      cachedDataType="r8"
+                      cachedName="Air_Time"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_Time]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Weather_Delay_Mins]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Weather_Delay_Mins]"
+                      name="Weather_Delay_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Weather_Delay]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Weather_Delay,0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Carrier_Delay_Mins]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Carrier_Delay_Mins]"
+                      name="Carrier_Delay_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Delay]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Airline_Delay,0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[NAS_Delay_Mins]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[NAS_Delay_Mins]"
+                      name="NAS_Delay_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_System_Delay]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Air_System_Delay,0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Security_Delay_Mins]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Security_Delay_Mins]"
+                      name="Security_Delay_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Security_Delay]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Security_Delay,0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[LateAircraft_Delay_Mins]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[LateAircraft_Delay_Mins]"
+                      name="LateAircraft_Delay_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Late_Aircraft_Delay]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Late_Aircraft_Delay,0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Air_Time_Mins]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Air_Time_Mins]"
+                      name="Air_Time_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I2)[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_Time]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I2)REPLACENULL(Air_Time,0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Arr_Delay_Mins]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Arr_Delay_Mins]"
+                      name="Arr_Delay_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Arrival_Delay,0)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Dep_Delay_Mins]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Dep_Delay_Mins]"
+                      name="Dep_Delay_Mins"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[REPLACENULL](#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Departure_Delay]},0)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">REPLACENULL(Departure_Delay,0)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2)"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - Aircraft(SCP2)"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT AircraftKey, BKTailNumber, Valid_From, ISNULL(Valid_To, '9999-12-31') AS Valid_To FROM Dim_Aircraft</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT AircraftKey, BKTailNumber, Valid_From, ISNULL(Valid_To, '9999-12-31') AS Valid_To FROM Dim_Aircraft) [refTable]
+where [refTable].[BKTailNumber] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="AircraftKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BKTailNumber" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Valid_From" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Valid_To" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Tail_Number]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Inputs[Lookup Input].Columns[Tail_Number]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Tail_Number"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Tail_Number]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">BKTailNumber</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Match Output].Columns[AircraftKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Match Output].Columns[AircraftKey]"
+                      name="AircraftKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">AircraftKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - Airline"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Airline]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Airline]) [refTable]
+where [refTable].[BKAirlineCode] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="AirlineKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BKAirlineCode" dataType="DT_WSTR" length="2" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="AirlineName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="InsertAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UpdateAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\375:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Inputs[Lookup Input].Columns[Airline_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="Airline_Code"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Code]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">BKAirlineCode</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Match Output].Columns[AirlineKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Match Output].Columns[AirlineKey]"
+                      name="AirlineKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">AirlineKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - Destination Airport"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Airport]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Airport]) [refTable]
+where [refTable].[BKAirportCode] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="AirportKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BKAirportCode" dataType="DT_WSTR" length="3" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="AirportName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="State" dataType="DT_WSTR" length="2" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Latitude" dataType="DT_NUMERIC" length="0" precision="8" scale="4" codePage="0"/&gt;&lt;referenceColumn name="Longitude" dataType="DT_NUMERIC" length="0" precision="9" scale="4" codePage="0"/&gt;&lt;referenceColumn name="InsertAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UpdateAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\376:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Inputs[Lookup Input].Columns[Destination_Airport]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Destination_Airport"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Destination_Airport]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">BKAirportCode</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Match Output].Columns[DestAirportKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Match Output].Columns[DestAirportKey]"
+                      name="DestAirportKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">AirportKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - Origin Airport"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from [dbo].[Dim_Airport]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from [dbo].[Dim_Airport]) [refTable]
+where [refTable].[BKAirportCode] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="AirportKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="BKAirportCode" dataType="DT_WSTR" length="3" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="AirportName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="State" dataType="DT_WSTR" length="2" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Latitude" dataType="DT_NUMERIC" length="0" precision="8" scale="4" codePage="0"/&gt;&lt;referenceColumn name="Longitude" dataType="DT_NUMERIC" length="0" precision="9" scale="4" codePage="0"/&gt;&lt;referenceColumn name="InsertAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UpdateAuditKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Load Fact Flight Transaction\377:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Inputs[Lookup Input].Columns[Origin_Airport]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Origin_Airport"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Origin_Airport]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">BKAirportCode</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Match Output].Columns[OriginAirportKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Match Output].Columns[OriginAirportKey]"
+                      name="OriginAirportKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">AirportKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Fact_Flight_Transaction]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Distance]"
+                      cachedDataType="r8"
+                      cachedName="Distance"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Distance]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Weather_Delay_Mins]"
+                      cachedDataType="r8"
+                      cachedName="Weather_Delay_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Weather_Delay_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Weather_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Carrier_Delay_Mins]"
+                      cachedDataType="r8"
+                      cachedName="Carrier_Delay_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Delay_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Carrier_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NAS_Delay_Mins]"
+                      cachedDataType="r8"
+                      cachedName="NAS_Delay_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NAS_Delay_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[NAS_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Security_Delay_Mins]"
+                      cachedDataType="r8"
+                      cachedName="Security_Delay_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Security_Delay_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Security_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LateAircraft_Delay_Mins]"
+                      cachedDataType="r8"
+                      cachedName="LateAircraft_Delay_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LateAircraft_Delay_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[LateAircraft_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Air_Time_Mins]"
+                      cachedDataType="i2"
+                      cachedName="Air_Time_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Air_Time_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Air_Time_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Is_Delayed]"
+                      cachedDataType="bool"
+                      cachedName="Is_Delayed"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Is_Delayed]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[Is_Delayed]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Estimated_Financial_Loss_USD]"
+                      cachedDataType="decimal"
+                      cachedName="Estimated_Financial_Loss_USD"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Estimated_Financial_Loss_USD]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[Estimated_Financial_Loss_USD]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DateKey]"
+                      cachedDataType="i4"
+                      cachedName="DateKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DateKey]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[OriginAirportKey]"
+                      cachedDataType="i4"
+                      cachedName="OriginAirportKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[OriginAirportKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Match Output].Columns[OriginAirportKey]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DestAirportKey]"
+                      cachedDataType="i4"
+                      cachedName="DestAirportKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DestAirportKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Match Output].Columns[DestAirportKey]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AirlineKey]"
+                      cachedDataType="i4"
+                      cachedName="AirlineKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AirlineKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Match Output].Columns[AirlineKey]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AircraftKey]"
+                      cachedDataType="i4"
+                      cachedName="AircraftKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AircraftKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Match Output].Columns[AircraftKey]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Cancelled]"
+                      cachedDataType="bool"
+                      cachedName="Cancelled"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Is_Cancelled]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancelled]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Cancellation_Reason]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="Cancellation_Reason"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancellation_Code]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancellation_Reason]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BKFlightID]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="BKFlightID"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[BKFlightID]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[BKFlightID]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Dep_Delay_Mins]"
+                      cachedDataType="r8"
+                      cachedName="Dep_Delay_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Dep_Delay_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Dep_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Arr_Delay_Mins]"
+                      cachedDataType="r8"
+                      cachedName="Arr_Delay_Mins"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Arr_Delay_Mins]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output].Columns[Arr_Delay_Mins]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DepTimeKey]"
+                      cachedDataType="i2"
+                      cachedName="DepTimeKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DepTimeKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[DepTimeKey]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ArrTimeKey]"
+                      cachedDataType="i2"
+                      cachedName="ArrTimeKey"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ArrTimeKey]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output].Columns[ArrTimeKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FlightTransactionKey]"
+                      dataType="i8"
+                      name="FlightTransactionKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                      dataType="i4"
+                      name="DateKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DepTimeKey]"
+                      dataType="i2"
+                      name="DepTimeKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ArrTimeKey]"
+                      dataType="i2"
+                      name="ArrTimeKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[OriginAirportKey]"
+                      dataType="i4"
+                      name="OriginAirportKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DestAirportKey]"
+                      dataType="i4"
+                      name="DestAirportKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AirlineKey]"
+                      dataType="i4"
+                      name="AirlineKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AircraftKey]"
+                      dataType="i4"
+                      name="AircraftKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[InsertAuditKey]"
+                      dataType="i4"
+                      name="InsertAuditKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[BKFlightID]"
+                      dataType="wstr"
+                      length="30"
+                      name="BKFlightID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
+                      dataType="i4"
+                      name="Distance" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Dep_Delay_Mins]"
+                      dataType="i2"
+                      name="Dep_Delay_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Arr_Delay_Mins]"
+                      dataType="i2"
+                      name="Arr_Delay_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Weather_Delay_Mins]"
+                      dataType="i2"
+                      name="Weather_Delay_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Delay_Mins]"
+                      dataType="i2"
+                      name="Carrier_Delay_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[NAS_Delay_Mins]"
+                      dataType="i2"
+                      name="NAS_Delay_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Security_Delay_Mins]"
+                      dataType="i2"
+                      name="Security_Delay_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LateAircraft_Delay_Mins]"
+                      dataType="i2"
+                      name="LateAircraft_Delay_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Is_Delayed]"
+                      dataType="bool"
+                      name="Is_Delayed" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Is_Cancelled]"
+                      dataType="bool"
+                      name="Is_Cancelled" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancellation_Code]"
+                      dataType="wstr"
+                      length="1"
+                      name="Cancellation_Code" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Air_Time_Mins]"
+                      dataType="i2"
+                      name="Air_Time_Mins" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Estimated_Financial_Loss_USD]"
+                      dataType="numeric"
+                      name="Estimated_Financial_Loss_USD"
+                      precision="12"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Flights Incremental"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+    Flight_Year, Flight_Month, Flight_Day, Day_Of_Week,
+    CAST(Airline_Code AS NVARCHAR(2)) AS Airline_Code,
+    Flight_Number,
+    CAST(Tail_Number AS NVARCHAR(10)) AS Tail_Number,
+    CAST(Origin_Airport AS NVARCHAR(3)) AS Origin_Airport,
+    CAST(Destination_Airport AS NVARCHAR(3)) AS Destination_Airport,
+    Scheduled_Departure, Departure_Time, Departure_Delay,
+    Taxi_Out, Wheels_Off, Scheduled_Time, Elapsed_Time,
+    Air_Time, Distance, Wheels_On, Taxi_In,
+    Scheduled_Arrival, Arrival_Time, Arrival_Delay,
+    Diverted, Cancelled, 
+    CAST(Cancellation_Reason AS NVARCHAR(1)) AS Cancellation_Reason,
+    Air_System_Delay, Security_Delay, Airline_Delay,
+    Late_Aircraft_Delay, Weather_Delay,
+    Updated_Date,
+    CAST(CAST(Flight_Year AS VARCHAR) + '-' + CAST(Flight_Month AS VARCHAR) + '-' + CAST(Flight_Day AS VARCHAR) AS DATE) AS FL_DATE,
+    CAST(CAST(Airline_Code AS VARCHAR) + '-' + CAST(Flight_Number AS VARCHAR) + '-' + CAST(Flight_Year AS VARCHAR) + '-' + CAST(Flight_Month AS VARCHAR) + '-' + CAST(Flight_Day AS VARCHAR) AS NVARCHAR(30)) AS BKFlightID
+FROM tb_Flights 
+WHERE Updated_Date &gt; ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{B5C3AE26-129B-41E8-A44B-A08C700566F2};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Connections[OleDbConnection]"
+                  connectionManagerID="{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Year]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Year]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Year]"
+                      name="Flight_Year"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Month]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Month]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Month]"
+                      name="Flight_Month"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Day]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Day]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Day]"
+                      name="Flight_Day"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Day_Of_Week]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Day_Of_Week]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Day_Of_Week]"
+                      name="Day_Of_Week"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Airline_Code]"
+                      length="2"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Code]"
+                      name="Airline_Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Number]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Number]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Flight_Number]"
+                      name="Flight_Number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Tail_Number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Tail_Number]"
+                      length="10"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Tail_Number]"
+                      name="Tail_Number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Origin_Airport]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Origin_Airport]"
+                      length="3"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Origin_Airport]"
+                      name="Origin_Airport"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Destination_Airport]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Destination_Airport]"
+                      length="3"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Destination_Airport]"
+                      name="Destination_Airport"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Departure]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Scheduled_Departure]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Departure]"
+                      name="Scheduled_Departure"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Departure_Time]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Departure_Time]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Departure_Time]"
+                      name="Departure_Time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Departure_Delay]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Departure_Delay]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Departure_Delay]"
+                      name="Departure_Delay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Taxi_Out]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Taxi_Out]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Taxi_Out]"
+                      name="Taxi_Out"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Wheels_Off]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Wheels_Off]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Wheels_Off]"
+                      name="Wheels_Off"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Time]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Scheduled_Time]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Time]"
+                      name="Scheduled_Time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Elapsed_Time]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Elapsed_Time]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Elapsed_Time]"
+                      name="Elapsed_Time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_Time]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Air_Time]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_Time]"
+                      name="Air_Time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Distance]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Distance]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Distance]"
+                      name="Distance"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Wheels_On]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Wheels_On]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Wheels_On]"
+                      name="Wheels_On"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Taxi_In]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Taxi_In]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Taxi_In]"
+                      name="Taxi_In"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Arrival]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Scheduled_Arrival]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Scheduled_Arrival]"
+                      name="Scheduled_Arrival"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Time]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Arrival_Time]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Time]"
+                      name="Arrival_Time"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Arrival_Delay]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Arrival_Delay]"
+                      name="Arrival_Delay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Diverted]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Diverted]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Diverted]"
+                      name="Diverted"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancelled]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Cancelled]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancelled]"
+                      name="Cancelled"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancellation_Reason]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Cancellation_Reason]"
+                      length="1"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Cancellation_Reason]"
+                      name="Cancellation_Reason"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_System_Delay]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Air_System_Delay]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Air_System_Delay]"
+                      name="Air_System_Delay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Security_Delay]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Security_Delay]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Security_Delay]"
+                      name="Security_Delay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Delay]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Airline_Delay]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Airline_Delay]"
+                      name="Airline_Delay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Late_Aircraft_Delay]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Late_Aircraft_Delay]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Late_Aircraft_Delay]"
+                      name="Late_Aircraft_Delay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Weather_Delay]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Weather_Delay]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Weather_Delay]"
+                      name="Weather_Delay"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Updated_Date]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[Updated_Date]"
+                      name="Updated_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[FL_DATE]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[FL_DATE]"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[FL_DATE]"
+                      name="FL_DATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[BKFlightID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[BKFlightID]"
+                      length="30"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].Columns[BKFlightID]"
+                      name="BKFlightID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Year]"
+                      dataType="i2"
+                      name="Flight_Year" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Month]"
+                      dataType="ui1"
+                      name="Flight_Month" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Day]"
+                      dataType="ui1"
+                      name="Flight_Day" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Day_Of_Week]"
+                      dataType="ui1"
+                      name="Day_Of_Week" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Airline_Code]"
+                      dataType="wstr"
+                      length="2"
+                      name="Airline_Code" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Flight_Number]"
+                      dataType="i4"
+                      name="Flight_Number" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Tail_Number]"
+                      dataType="wstr"
+                      length="10"
+                      name="Tail_Number" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Origin_Airport]"
+                      dataType="wstr"
+                      length="3"
+                      name="Origin_Airport" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Destination_Airport]"
+                      dataType="wstr"
+                      length="3"
+                      name="Destination_Airport" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Scheduled_Departure]"
+                      dataType="i4"
+                      name="Scheduled_Departure" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Departure_Time]"
+                      dataType="i4"
+                      name="Departure_Time" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Departure_Delay]"
+                      dataType="r8"
+                      name="Departure_Delay" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Taxi_Out]"
+                      dataType="r8"
+                      name="Taxi_Out" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Wheels_Off]"
+                      dataType="i4"
+                      name="Wheels_Off" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Scheduled_Time]"
+                      dataType="r8"
+                      name="Scheduled_Time" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Elapsed_Time]"
+                      dataType="r8"
+                      name="Elapsed_Time" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Air_Time]"
+                      dataType="r8"
+                      name="Air_Time" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Distance]"
+                      dataType="r8"
+                      name="Distance" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Wheels_On]"
+                      dataType="i4"
+                      name="Wheels_On" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Taxi_In]"
+                      dataType="r8"
+                      name="Taxi_In" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Scheduled_Arrival]"
+                      dataType="i4"
+                      name="Scheduled_Arrival" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Arrival_Time]"
+                      dataType="i4"
+                      name="Arrival_Time" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Arrival_Delay]"
+                      dataType="r8"
+                      name="Arrival_Delay" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Diverted]"
+                      dataType="bool"
+                      name="Diverted" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Cancelled]"
+                      dataType="bool"
+                      name="Cancelled" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Cancellation_Reason]"
+                      dataType="wstr"
+                      length="1"
+                      name="Cancellation_Reason" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Air_System_Delay]"
+                      dataType="r8"
+                      name="Air_System_Delay" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Security_Delay]"
+                      dataType="r8"
+                      name="Security_Delay" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Airline_Delay]"
+                      dataType="r8"
+                      name="Airline_Delay" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Late_Aircraft_Delay]"
+                      dataType="r8"
+                      name="Late_Aircraft_Delay" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Weather_Delay]"
+                      dataType="r8"
+                      name="Weather_Delay" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      name="Updated_Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[FL_DATE]"
+                      dataType="dbDate"
+                      name="FL_DATE" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output].ExternalColumns[BKFlightID]"
+                      dataType="wstr"
+                      length="30"
+                      name="BKFlightID" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Year]"
+                      dataType="i2"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Year]"
+                      name="Flight_Year" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Month]"
+                      dataType="ui1"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Month]"
+                      name="Flight_Month" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Day]"
+                      dataType="ui1"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Day]"
+                      name="Flight_Day" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Day_Of_Week]"
+                      dataType="ui1"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Day_Of_Week]"
+                      name="Day_Of_Week" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Airline_Code]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Airline_Code]"
+                      name="Airline_Code" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Number]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Flight_Number]"
+                      name="Flight_Number" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Tail_Number]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Tail_Number]"
+                      name="Tail_Number" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Origin_Airport]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Origin_Airport]"
+                      name="Origin_Airport" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Destination_Airport]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Destination_Airport]"
+                      name="Destination_Airport" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Scheduled_Departure]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Scheduled_Departure]"
+                      name="Scheduled_Departure" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Departure_Time]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Departure_Time]"
+                      name="Departure_Time" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Departure_Delay]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Departure_Delay]"
+                      name="Departure_Delay" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Taxi_Out]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Taxi_Out]"
+                      name="Taxi_Out" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Wheels_Off]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Wheels_Off]"
+                      name="Wheels_Off" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Scheduled_Time]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Scheduled_Time]"
+                      name="Scheduled_Time" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Elapsed_Time]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Elapsed_Time]"
+                      name="Elapsed_Time" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Air_Time]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Air_Time]"
+                      name="Air_Time" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Distance]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Distance]"
+                      name="Distance" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Wheels_On]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Wheels_On]"
+                      name="Wheels_On" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Taxi_In]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Taxi_In]"
+                      name="Taxi_In" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Scheduled_Arrival]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Scheduled_Arrival]"
+                      name="Scheduled_Arrival" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Arrival_Time]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Arrival_Time]"
+                      name="Arrival_Time" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Arrival_Delay]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Arrival_Delay]"
+                      name="Arrival_Delay" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Diverted]"
+                      dataType="bool"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Diverted]"
+                      name="Diverted" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Cancelled]"
+                      dataType="bool"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Cancelled]"
+                      name="Cancelled" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Cancellation_Reason]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Cancellation_Reason]"
+                      name="Cancellation_Reason" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Air_System_Delay]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Air_System_Delay]"
+                      name="Air_System_Delay" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Security_Delay]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Security_Delay]"
+                      name="Security_Delay" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Airline_Delay]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Airline_Delay]"
+                      name="Airline_Delay" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Late_Aircraft_Delay]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Late_Aircraft_Delay]"
+                      name="Late_Aircraft_Delay" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Weather_Delay]"
+                      dataType="r8"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Weather_Delay]"
+                      name="Weather_Delay" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[Updated_Date]"
+                      name="Updated_Date" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[FL_DATE]"
+                      dataType="dbDate"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[FL_DATE]"
+                      name="FL_DATE" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[BKFlightID]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Error Output].Columns[BKFlightID]"
+                      name="BKFlightID" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Load Fact Flight Transaction.Paths[Derived Column Output]"
+              endId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Load Fact Flight Transaction.Paths[Derived Column Output1]"
+              endId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Load Fact Flight Transaction\DC - Metrics.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output]"
+              endId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output1]"
+              endId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output2]"
+              endId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Load Fact Flight Transaction\LKP - Airline.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output3]"
+              endId="Package\DFT - Load Fact Flight Transaction\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2).Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Load Fact Flight Transaction.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Get LastLoadDate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="SQL - Get LastLoadDate"
+      DTS:DTSID="{042C4591-EC8B-483D-AF48-F3FEA3EFAB8E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Get LastLoadDate"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E672A47B-07CC-41F2-9F79-E987A337530C}"
+          SQLTask:SqlStatementSource="SELECT Last_Load_Time FROM ETL_Watermark WHERE TableName = 'Fact_Flight_Transaction'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::LastLoadDate" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Update Watermark"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="SQL - Update Watermark"
+      DTS:DTSID="{02BA5DDE-A194-49B5-91FE-B9AAA757671B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Update Watermark"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E672A47B-07CC-41F2-9F79-E987A337530C}"
+          SQLTask:SqlStatementSource="UPDATE ETL_Watermark &#xA;SET Last_Load_Time = (SELECT MAX(Updated_Date) FROM Airline_OLTP.dbo.tb_Flights),&#xA;    Last_Updated = GETDATE()&#xA;WHERE TableName = 'Fact_Flight_Transaction'&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{F7C3876B-B3C9-4CF1-9C3C-FB6F2D0DA87C}"
+      DTS:From="Package\SQL - Get LastLoadDate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Load Fact Flight Transaction" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B16A0605-34F9-4D4D-8CF2-17C60290B13D}"
+      DTS:From="Package\DFT - Load Fact Flight Transaction"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Update Watermark" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="241,42"
+          Id="Package\DFT - Load Fact Flight Transaction"
+          TopLeft="371,171" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package\SQL - Get LastLoadDate"
+          TopLeft="369,77" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\SQL - Update Watermark"
+          TopLeft="381.5,239.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="465,119">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.5,52"
+              Start="0,0"
+              End="26.5,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22"
+                    Point2="0,26"
+                    Point3="4,26" />
+                  <mssgle:LineSegment
+                    End="22.5,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.5,26"
+                    Point2="26.5,26"
+                    Point3="26.5,30" />
+                  <mssgle:LineSegment
+                    End="26.5,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="491.5,213">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-28.5,26.5"
+              Start="0,0"
+              End="-28.5,19">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.25"
+                    Point2="0,13.25"
+                    Point3="-4,13.25" />
+                  <mssgle:LineSegment
+                    End="-24.5,13.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-24.5,13.25"
+                    Point2="-28.5,13.25"
+                    Point3="-28.5,17.25" />
+                  <mssgle:LineSegment
+                    End="-28.5,19" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Load Fact Flight Transaction">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="199,42"
+          Id="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental"
+          TopLeft="35,111" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2)"
+          TopLeft="249.5,203.5" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport"
+          TopLeft="670.5,202.5" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\DFT - Load Fact Flight Transaction\OLE DB Destination"
+          TopLeft="37,211" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\DFT - Load Fact Flight Transaction\DC - Replace NULLs"
+          TopLeft="274,115" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\DFT - Load Fact Flight Transaction\LKP - Airline"
+          TopLeft="483,202" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport"
+          TopLeft="656,122" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\DFT - Load Fact Flight Transaction\DC - Metrics"
+          TopLeft="474,120" />
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[OLE DB Source Output]"
+          TopLeft="234,134">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="40,0"
+              Start="0,0"
+              End="32.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="32.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output3]"
+          TopLeft="249.5,228.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-41.5,0"
+              Start="0,0"
+              End="-34,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-34,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-65.19138671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output2]"
+          TopLeft="483,223.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-60.5,0"
+              Start="0,0"
+              End="-53,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-53,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-74.69138671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output1]"
+          TopLeft="670.5,223.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-51.5,0"
+              Start="0,0"
+              End="-44,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-44,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-70.19138671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Lookup Match Output]"
+          TopLeft="741,164">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="27,38.5"
+              Start="0,0"
+              End="27,31">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.25"
+                    Point2="0,19.25"
+                    Point3="4,19.25" />
+                  <mssgle:LineSegment
+                    End="23,19.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="23,19.25"
+                    Point2="27,19.25"
+                    Point3="27,23.25" />
+                  <mssgle:LineSegment
+                    End="27,31" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-34.69138671875,24.25,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Derived Column Output1]"
+          TopLeft="611,142">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="45,0"
+              Start="0,0"
+              End="37.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="37.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Flight Transaction.Paths[Derived Column Output]"
+          TopLeft="447,138.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="27,0"
+              Start="0,0"
+              End="19.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="19.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Flight Transaction\SRC - Flights Incremental">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Aircraft(SCP2)">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Destination Airport">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Airport]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Flight Transaction\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Airline">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Airline]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Flight Transaction\LKP - Origin Airport">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Dim_Airport]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
