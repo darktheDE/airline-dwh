@@ -33,6 +33,16 @@
 ===================================================================================
 */
 
+USE master;
+GO
+
+-- Tạo database AirlineDWH nếu chưa tồn tại
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'AirlineDWH')
+BEGIN
+    CREATE DATABASE AirlineDWH;
+END
+GO
+
 USE AirlineDWH;
 GO
 

@@ -12,24 +12,1926 @@
   DTS:ObjectName="Load_Dim_Airport_Airline"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{85628D76-E294-48AB-8E26-7D0A75EE78B8}">
+  DTS:VersionBuild="43"
+  DTS:VersionGUID="{31CC5270-C858-468C-A69D-EA1064F335A6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\DFT - Extract to Staging"
+      DTS:refId="Package\Data Flow Task"
       DTS:CreationName="Microsoft.Pipeline"
-      DTS:DTSID="{D1E2F3A4-B5C6-7890-DEFB-4567890ABCDE}"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{8D2A3C79-1D02-458A-BC4A-0E325B795A8D}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="DFT - Extract to Staging"
+      DTS:ObjectName="Data Flow Task"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
         <pipeline
-          version="1" />
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input].Columns[IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="IATA_Code"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input].Columns[Airline_Name]"
+                      cachedDataType="nText"
+                      cachedName="Airline_Name"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_Name]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      name="Copy of IATA_Code"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airline_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airline_Name]"
+                      name="Copy of Airline_Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_Name]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Insert Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Insert Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Dim_Airline]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Insert Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Copy of IATA_Code"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[BKAirlineCode]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of Airline_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Copy of Airline_Name"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[AirlineName]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airline_Name]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[AirlineKey]"
+                      dataType="i4"
+                      name="AirlineKey" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[BKAirlineCode]"
+                      dataType="wstr"
+                      length="2"
+                      name="BKAirlineCode" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[AirlineName]"
+                      dataType="wstr"
+                      length="100"
+                      name="AirlineName" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[InsertAuditKey]"
+                      dataType="i4"
+                      name="InsertAuditKey" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[UpdateAuditKey]"
+                      dataType="i4"
+                      name="UpdateAuditKey" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\OLE DB Command"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE [dbo].[Dim_Airline] SET [AirlineName] = ? WHERE [BKAirlineCode] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\OLE DB Command.Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of Airline_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Copy of Airline_Name"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airline_Name]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Copy of IATA_Code"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="100"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="2"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Command.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\OLE DB Command 1"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command 1"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE [dbo].[Dim_Airline] SET [AirlineName] = ? WHERE [BKAirlineCode] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\OLE DB Command 1.Connections[OleDbConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].Columns[Copy of Airline_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Copy of Airline_Name"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airline_Name]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].Columns[Copy of IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Copy of IATA_Code"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="wstr"
+                      length="100"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="wstr"
+                      length="2"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\OLE DB Command 1.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\OLE DB Command 1.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Command 1.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stg_Airlines]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+    IATA_Code,
+    Airport_Name,
+    City,
+    State,
+    TRY_CAST(Latitude AS DECIMAL(8,4)) AS Latitude,
+    TRY_CAST(Longitude AS DECIMAL(9,4)) AS Longitude
+FROM dbo.stg_Airports</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_Name]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airline_Name]"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_Name]"
+                      name="Airline_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IATA_Code]"
+                      length="200"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]"
+                      name="IATA_Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[Staging_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Staging_Date]"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[Staging_Date]"
+                      name="Staging_Date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IATA_Code]"
+                      dataType="wstr"
+                      length="200"
+                      name="IATA_Code" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Staging_Date]"
+                      dataType="dbTimeStamp"
+                      name="Staging_Date" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airline_Name]"
+                      dataType="nText"
+                      name="Airline_Name" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airline_Name]"
+                      dataType="nText"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airline_Name]"
+                      name="Airline_Name" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IATA_Code]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IATA_Code]"
+                      name="IATA_Code" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Staging_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Staging_Date]"
+                      name="Staging_Date" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Slowly Changing Dimension"
+              componentClassID="Microsoft.SCD"
+              contactInfo="Slowly Changing Dimension;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
+              description="Updates a SQL Server Analysis Services data warehouse dimension. Update dimension records that are already present and  insert dimension records that aren't. For example, update the DimProduct table of the AdventureWorksDW OLAP database with data from the Products table in the AdventureWorks OLTP database."
+              name="Slowly Changing Dimension"
+              version="3">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SELECT statement used to create a schema rowset."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT [AirlineName], [BKAirlineCode] FROM [dbo].[Dim_Airline]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the WHERE clause in the SELECT statement that selects the current row among rows with identical business keys."
+                  name="CurrentRowWhere"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether historical attribute updates are directed to the transformation output for changing attribute updates."
+                  name="UpdateChangingAttributeHistory">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the transformation fails when columns with fixed attributes contain changes."
+                  name="FailOnFixedAttributeChange">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the column name for the inferred member."
+                  name="InferredMemberIndicator"></property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether inferred member updates are detected."
+                  name="EnableInferredMember">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the transformation fails when a lookup of an existing record fails."
+                  name="FailOnLookupFailure">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies that all rows in the input are new or the transformation detects the change type."
+                  name="IncomingRowChangeType"
+                  typeConverter="IncomingRowChangeType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Connections[LookupConnection]"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
+                  description="Defines the connection to use for lookups in the dimension table"
+                  name="LookupConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]"
+                  name="Slowly Changing Dimension Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].Columns[Copy of Airline_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Copy of Airline_Name"
+                      externalMetadataColumnId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[AirlineName]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airline_Name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].Columns[Copy of IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Copy of IATA_Code"
+                      externalMetadataColumnId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[BKAirlineCode]"
+                      lineageId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[AirlineName]"
+                      dataType="wstr"
+                      length="100"
+                      name="AirlineName" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[BKAirlineCode]"
+                      dataType="wstr"
+                      length="2"
+                      name="BKAirlineCode" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Unchanged Output]"
+                  description="Unchanged rows"
+                  exclusionGroup="1"
+                  name="Unchanged Output"
+                  synchronousInputId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[New Output]"
+                  description="New rows"
+                  exclusionGroup="1"
+                  name="New Output"
+                  synchronousInputId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Fixed Attribute Output]"
+                  description="Rows with changes in columns tagged FixedAttribute"
+                  exclusionGroup="1"
+                  name="Fixed Attribute Output"
+                  synchronousInputId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Changing Attribute Updates Output]"
+                  description="These rows contain new information for ChangingAttribute (Type 1) column changes"
+                  exclusionGroup="1"
+                  name="Changing Attribute Updates Output"
+                  synchronousInputId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Historical Attribute Inserts Output]"
+                  description="HistoricalAttribute (Type 2) changes result in these new rows"
+                  exclusionGroup="2"
+                  name="Historical Attribute Inserts Output"
+                  synchronousInputId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Inferred Member Updates Output]"
+                  description="Information to update unpopulated initial dimension row"
+                  exclusionGroup="1"
+                  name="Inferred Member Updates Output"
+                  synchronousInputId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[Changing Attribute Updates Output]"
+              endId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input]"
+              name="Changing Attribute Updates Output"
+              startId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Changing Attribute Updates Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Data Conversion Output]"
+              endId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input]"
+              name="Data Conversion Output"
+              startId="Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[Inferred Member Updates Output]"
+              endId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input]"
+              name="Inferred Member Updates Output"
+              startId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Inferred Member Updates Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[New Output]"
+              endId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]"
+              name="New Output"
+              startId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[New Output]" />
+            <path
+              refId="Package\Data Flow Task.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow Task\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Extract Airline"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CCE9E66F-C7A4-43DC-A824-3098919D6CD7}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Extract Airline"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Extract Airline\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Extract Airline\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Extract Airline\Data Conversion.Inputs[Data Conversion Input].Columns[IATA_Code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="IATA_Code"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\DFT - Extract Airline\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      name="Copy of IATA_Code"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\DFT - Extract Airline\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Extract Airline\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stg_Airlines]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Extract Airline\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Airline_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Airline_Name"
+                      externalMetadataColumnId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Airline_Name]"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_Name]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="Copy of IATA_Code"
+                      externalMetadataColumnId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IATA_Code]"
+                      lineageId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IATA_Code]"
+                      dataType="wstr"
+                      length="200"
+                      name="IATA_Code" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Airline_Name]"
+                      dataType="nText"
+                      name="Airline_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Staging_Date]"
+                      dataType="dbTimeStamp"
+                      name="Staging_Date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Extract Airline\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Extract Airline\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[tb_Airlines]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Extract Airline\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airline_ID]"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_ID]"
+                      name="Airline_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IATA_Code]"
+                      length="2"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]"
+                      name="IATA_Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airline_Name]"
+                      length="100"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airline_Name]"
+                      name="Airline_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Created_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Created_Date]"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Created_Date]"
+                      name="Created_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Updated_Date]"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].Columns[Updated_Date]"
+                      name="Updated_Date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airline_ID]"
+                      dataType="i4"
+                      name="Airline_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IATA_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="IATA_Code" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airline_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Airline_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Created_Date]"
+                      dataType="dbTimeStamp"
+                      name="Created_Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      name="Updated_Date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airline_ID]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airline_ID]"
+                      name="Airline_ID" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IATA_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IATA_Code]"
+                      name="IATA_Code" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airline_Name]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airline_Name]"
+                      name="Airline_Name" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Created_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Created_Date]"
+                      name="Created_Date" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Updated_Date]"
+                      name="Updated_Date" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Extract Airline.Paths[Data Conversion Output]"
+              endId="Package\DFT - Extract Airline\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\DFT - Extract Airline\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\DFT - Extract Airline.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Extract Airline\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Extract Airline\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Extract to Staging - Airport"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{D1E2F3A4-B5C6-7890-DEFB-4567890ABCDE}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Extract to Staging - Airport"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Extract to Staging - Airport\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Inputs[Data Conversion Input].Columns[IATA_Code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="IATA_Code"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Inputs[Data Conversion Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="State"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[State]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Inputs[Data Conversion Input].Columns[Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="Country"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\DFT - Extract to Staging - Airport\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Country]"
+                      name="Copy of Country"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Country]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      name="Copy of IATA_Code"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]"
+                      name="Copy of State"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[State]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\DFT - Extract to Staging - Airport\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[stg_Airports]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+    CAST(IATA_Code AS NVARCHAR(10)) AS IATA_Code,
+    Airport_Name,
+    City,
+    State,
+    Latitude,
+    Longitude
+FROM dbo.tb_Airports</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Airport_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="150"
+                      cachedName="Airport_Name"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Airport_Name]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airport_Name]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Latitude]"
+                      cachedDataType="numeric"
+                      cachedName="Latitude"
+                      cachedPrecision="9"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Latitude]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Latitude]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Longitude]"
+                      cachedDataType="numeric"
+                      cachedName="Longitude"
+                      cachedPrecision="9"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Longitude]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Longitude]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Copy of IATA_Code"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IATA_Code]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of State]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="Copy of State"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]" />
+                    <inputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Country]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="Copy of Country"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IATA_Code]"
+                      dataType="wstr"
+                      length="200"
+                      name="IATA_Code" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Airport_Name]"
+                      dataType="nText"
+                      name="Airport_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      dataType="nText"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      dataType="wstr"
+                      length="200"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="200"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Latitude]"
+                      dataType="wstr"
+                      length="200"
+                      name="Latitude" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Longitude]"
+                      dataType="wstr"
+                      length="200"
+                      name="Longitude" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Staging_Date]"
+                      dataType="dbTimeStamp"
+                      name="Staging_Date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Extract to Staging - Airport\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[tb_Airports]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airport_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airport_ID]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airport_ID]"
+                      name="Airport_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IATA_Code]"
+                      length="3"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]"
+                      name="IATA_Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airport_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airport_Name]"
+                      length="150"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Airport_Name]"
+                      name="Airport_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="100"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      length="2"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="3"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Latitude]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Latitude]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Latitude]"
+                      name="Latitude"
+                      precision="9"
+                      scale="6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Longitude]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Longitude]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Longitude]"
+                      name="Longitude"
+                      precision="9"
+                      scale="6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Created_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Created_Date]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Created_Date]"
+                      name="Created_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Updated_Date]"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].Columns[Updated_Date]"
+                      name="Updated_Date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airport_ID]"
+                      dataType="i4"
+                      name="Airport_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IATA_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="IATA_Code" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Airport_Name]"
+                      dataType="wstr"
+                      length="150"
+                      name="Airport_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="100"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Latitude]"
+                      dataType="numeric"
+                      name="Latitude"
+                      precision="9"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Longitude]"
+                      dataType="numeric"
+                      name="Longitude"
+                      precision="9"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Created_Date]"
+                      dataType="dbTimeStamp"
+                      name="Created_Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      name="Updated_Date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airport_ID]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airport_ID]"
+                      name="Airport_ID" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IATA_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IATA_Code]"
+                      name="IATA_Code" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airport_Name]"
+                      dataType="wstr"
+                      length="150"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Airport_Name]"
+                      name="Airport_Name" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[City]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Latitude]"
+                      dataType="numeric"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Latitude]"
+                      name="Latitude"
+                      precision="9"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Longitude]"
+                      dataType="numeric"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Longitude]"
+                      name="Longitude"
+                      precision="9"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Created_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Created_Date]"
+                      name="Created_Date" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Updated_Date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Updated_Date]"
+                      name="Updated_Date" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Extract to Staging - Airport.Paths[Data Conversion Output]"
+              endId="Package\DFT - Extract to Staging - Airport\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\DFT - Extract to Staging - Airport\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\DFT - Extract to Staging - Airport.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Extract to Staging - Airport\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Extract to Staging - Airport\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -85,6 +1987,12 @@
                       cachedDataType="nText"
                       cachedName="City"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Inputs[Data Conversion Input].Columns[IATA_Code]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="IATA_Code"
+                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -142,9 +2050,10 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airport_Name]"
-                      dataType="nText"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
+                      length="100"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airport_Name]"
                       name="Copy of Airport_Name"
                       truncationRowDisposition="FailComponent">
@@ -165,7 +2074,7 @@
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="200"
+                      length="2"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]"
                       name="Copy of State"
                       truncationRowDisposition="FailComponent">
@@ -183,9 +2092,10 @@
                     </outputColumn>
                     <outputColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of City]"
-                      dataType="nText"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
+                      length="50"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of City]"
                       name="Copy of City"
                       truncationRowDisposition="FailComponent">
@@ -195,6 +2105,27 @@
                           dataType="System.Int32"
                           description="Specifies the input column used as the source of data for the conversion."
                           name="SourceInputColumnLineageID">#{Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[City]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="3"
+                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]"
+                      name="Copy of IATA_Code"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indicates whether the column uses the faster, locale-neutral parsing routines."
@@ -301,6 +2232,13 @@
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of State]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="Copy of State"
+                      externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]" />
+                    <inputColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].Columns[IATA_Code]"
                       cachedDataType="wstr"
                       cachedLength="200"
@@ -309,23 +2247,11 @@
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]" />
                     <inputColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of Airport_Name]"
-                      cachedDataType="nText"
+                      cachedDataType="wstr"
+                      cachedLength="100"
                       cachedName="Copy of Airport_Name"
                       externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[AirportName]"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airport_Name]" />
-                    <inputColumn
-                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of City]"
-                      cachedDataType="nText"
-                      cachedName="Copy of City"
-                      externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[City]"
-                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of City]" />
-                    <inputColumn
-                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of State]"
-                      cachedDataType="wstr"
-                      cachedLength="200"
-                      cachedName="Copy of State"
-                      externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[State]"
-                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]" />
                     <inputColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of Latitude]"
                       cachedDataType="numeric"
@@ -342,9 +2268,24 @@
                       cachedScale="4"
                       externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[Longitude]"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Longitude]" />
+                    <inputColumn
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].Columns[Copy of City]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Copy of City"
+                      externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of City]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[InsertAuditKey]"
+                      dataType="i4"
+                      name="InsertAuditKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[UpdateAuditKey]"
+                      dataType="i4"
+                      name="UpdateAuditKey" />
                     <externalMetadataColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[AirportKey]"
                       dataType="i4"
@@ -381,14 +2322,6 @@
                       name="Longitude"
                       precision="9"
                       scale="4" />
-                    <externalMetadataColumn
-                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[InsertAuditKey]"
-                      dataType="i4"
-                      name="InsertAuditKey" />
-                    <externalMetadataColumn
-                      refId="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[UpdateAuditKey]"
-                      dataType="i4"
-                      name="UpdateAuditKey" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -459,7 +2392,8 @@
                   <inputColumns>
                     <inputColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of Airport_Name]"
-                      cachedDataType="nText"
+                      cachedDataType="wstr"
+                      cachedLength="100"
                       cachedName="Copy of Airport_Name"
                       externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airport_Name]" />
@@ -471,11 +2405,11 @@
                       externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[IATA_Code]" />
                     <inputColumn
-                      refId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of City]"
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].Columns[City]"
                       cachedDataType="nText"
-                      cachedName="Copy of City"
+                      cachedName="City"
                       externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
-                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of City]" />
+                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[City]" />
                     <inputColumn
                       refId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of Latitude]"
                       cachedDataType="numeric"
@@ -493,12 +2427,12 @@
                       externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
                       lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Longitude]" />
                     <inputColumn
-                      refId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].Columns[Copy of State]"
+                      refId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].Columns[State]"
                       cachedDataType="wstr"
                       cachedLength="200"
-                      cachedName="Copy of State"
+                      cachedName="State"
                       externalMetadataColumnId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
-                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]" />
+                      lineageId="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source.Outputs[OLE DB Source Output].Columns[State]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1237,15 +3171,31 @@ FROM dbo.stg_Airports</property>
       DTS:From="Package\Truncate Staging"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
-      DTS:To="Package\DFT - Extract to Staging" />
+      DTS:To="Package\DFT - Extract to Staging - Airport" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
       DTS:DTSID="{02345678-90AB-CDEF-1234-567890ABCDEF}"
-      DTS:From="Package\DFT - Extract to Staging"
+      DTS:From="Package\DFT - Extract to Staging - Airport"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\DFT - Load to DWH (SCD Type 1)" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{28485C7F-4D54-40A9-BCD8-E51B2916BD6B}"
+      DTS:From="Package\Truncate Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\DFT - Extract Airline" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{9C8F0EF8-5841-471A-8665-FD61C6985727}"
+      DTS:From="Package\DFT - Extract Airline"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Data Flow Task" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1258,33 +3208,53 @@ FROM dbo.stg_Airports</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="192,42"
-          Id="Package\DFT - Extract to Staging"
+          Size="152,42.6666666666667"
+          Id="Package\Data Flow Task"
+          TopLeft="506.874977340922,225.549989244938" />
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\DFT - Extract Airline"
+          TopLeft="510.624977173285,128.0499938941" />
+        <NodeLayout
+          Size="236,42.6666666666667"
+          Id="Package\DFT - Extract to Staging - Airport"
           TopLeft="193,135" />
         <NodeLayout
-          Size="242,42"
+          Size="238.666666666667,42.6666666666667"
           Id="Package\DFT - Load to DWH (SCD Type 1)"
-          TopLeft="168,220" />
+          TopLeft="166.125000083819,220" />
         <NodeLayout
-          Size="158,42"
+          Size="160,42.6666666666667"
           Id="Package\Truncate Staging"
           TopLeft="210,50" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="289,92">
+          TopLeft="264.666666666667,92.6666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,43"
+              EndConnector="46.3333333333333,42.3333333333333"
               Start="0,0"
-              End="0,35.5">
+              End="46.3333333333333,34.8333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.5" />
+                    End="0,13.1848184818482" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.1848184818482"
+                    Point2="0,17.1848184818482"
+                    Point3="4,17.1848184818482" />
+                  <mssgle:LineSegment
+                    End="42.3333333333333,17.1848184818482" />
+                  <mssgle:CubicBezierSegment
+                    Point1="42.3333333333333,17.1848184818482"
+                    Point2="46.3333333333333,17.1848184818482"
+                    Point3="46.3333333333333,21.1848184818482" />
+                  <mssgle:LineSegment
+                    End="46.3333333333333,34.8333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1295,18 +3265,98 @@ FROM dbo.stg_Airports</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="289,177">
+          TopLeft="311,177.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,43"
+              EndConnector="-25.5416665828477,42.3333333333333"
               Start="0,0"
-              End="0,35.5">
+              End="-25.5416665828477,34.8333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.5" />
+                    End="0,17.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.1666666666667"
+                    Point2="0,21.1666666666667"
+                    Point3="-4,21.1666666666667" />
+                  <mssgle:LineSegment
+                    End="-21.5416665828477,21.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-21.5416665828477,21.1666666666667"
+                    Point2="-25.5416665828477,21.1666666666667"
+                    Point3="-25.5416665828477,25.1666666666667" />
+                  <mssgle:LineSegment
+                    End="-25.5416665828477,34.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="315.333333333333,92.6666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="282.624977173285,35.3833272274333"
+              Start="0,0"
+              End="282.624977173285,27.8833272274333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.3635288745027" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.3635288745027"
+                    Point2="0,14.3635288745027"
+                    Point3="4,14.3635288745027" />
+                  <mssgle:LineSegment
+                    End="278.624977173285,14.3635288745027" />
+                  <mssgle:CubicBezierSegment
+                    Point1="278.624977173285,14.3635288745027"
+                    Point2="282.624977173285,14.3635288745027"
+                    Point3="282.624977173285,18.3635288745027" />
+                  <mssgle:LineSegment
+                    End="282.624977173285,27.8833272274333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="597.958310506618,170.716660560767">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-15.0833331656955,54.8333286841712"
+              Start="0,0"
+              End="-15.0833331656955,47.3333286841712">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.4166643420856" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.4166643420856"
+                    Point2="0,27.4166643420856"
+                    Point3="-4,27.4166643420856" />
+                  <mssgle:LineSegment
+                    End="-11.0833331656955,27.4166643420856" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-11.0833331656955,27.4166643420856"
+                    Point2="-15.0833331656955,27.4166643420856"
+                    Point3="-15.0833331656955,31.4166643420856" />
+                  <mssgle:LineSegment
+                    End="-15.0833331656955,47.3333286841712" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1319,18 +3369,512 @@ FROM dbo.stg_Airports</property>
     </LayoutInfo>
   </Package>
   <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="164,42.6666666666667"
+          Id="Package\Data Flow Task\Insert Destination"
+          TopLeft="5.50000000000006,313.5" />
+        <NodeLayout
+          Size="209.333333333334,42.6666666666667"
+          Id="Package\Data Flow Task\Slowly Changing Dimension"
+          TopLeft="208.833333333333,210.833333333333" />
+        <NodeLayout
+          Size="166.666666666667,42.6666666666667"
+          Id="Package\Data Flow Task\OLE DB Command"
+          TopLeft="230.166666666667,313.5" />
+        <NodeLayout
+          Size="176,42.6666666666667"
+          Id="Package\Data Flow Task\OLE DB Command 1"
+          TopLeft="457.5,313.5" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\Data Flow Task\OLE DB Source"
+          TopLeft="238.166666666667,5.49999999999993" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\Data Flow Task\Data Conversion"
+          TopLeft="234.833333333333,108.166666666667" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
+          TopLeft="313.5,48.1666666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[New Output]"
+          TopLeft="263.166666666667,253.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-175.666666666667,60.0000000000001"
+              Start="0,0"
+              End="-175.666666666667,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5031446540881" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5031446540881"
+                    Point2="0,20.5031446540881"
+                    Point3="-4,20.5031446540881" />
+                  <mssgle:LineSegment
+                    End="-171.666666666667,20.5031446540881" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-171.666666666667,20.5031446540881"
+                    Point2="-175.666666666667,20.5031446540881"
+                    Point3="-175.666666666667,24.5031446540881" />
+                  <mssgle:LineSegment
+                    End="-175.666666666667,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-114.924720052083,25.5031446540881,54.1827734375,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Inferred Member Updates Output]"
+          TopLeft="313.5,253.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-74.40298828125,20.4208984375001,148.8059765625,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Data Conversion Output]"
+          TopLeft="313.5,150.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Changing Attribute Updates Output]"
+          TopLeft="363.833333333333,253.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="181.666666666667,60.0000000000001"
+              Start="0,0"
+              End="181.666666666667,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5031446540881" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5031446540881"
+                    Point2="0,20.5031446540881"
+                    Point3="4,20.5031446540881" />
+                  <mssgle:LineSegment
+                    End="177.666666666667,20.5031446540881" />
+                  <mssgle:CubicBezierSegment
+                    Point1="177.666666666667,20.5031446540881"
+                    Point2="181.666666666667,20.5031446540881"
+                    Point3="181.666666666667,24.5031446540881" />
+                  <mssgle:LineSegment
+                    End="181.666666666667,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="12.2994270833333,25.5031446540881,157.0678125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Insert Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\Slowly Changing Dimension">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionID&gt;{E672A47B-07CC-41F2-9F79-E987A337530C}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[dbo].[Dim_Airline]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Airline_Name]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;AirlineName&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[Copy of IATA_Code]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;BKAirlineCode&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command 1&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn /&gt;
+  &lt;EndDateColumn /&gt;
+  &lt;DateVariable /&gt;
+  &lt;EnableInferredSupport&gt;true&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\DFT - Extract Airline">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\DFT - Extract Airline\OLE DB Source"
+          TopLeft="322.99999037385,99.9999970197678" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\DFT - Extract Airline\OLE DB Destination"
+          TopLeft="327.999990224838,221.999993383885" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\DFT - Extract Airline\Data Conversion"
+          TopLeft="553.142840657916,183.285708823374" />
+        <EdgeLayout
+          Id="Package\DFT - Extract Airline.Paths[OLE DB Source Output]"
+          TopLeft="398.333323707183,142.666663686435">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="233.476183617399,40.61904513694"
+              Start="0,0"
+              End="233.476183617399,33.11904513694">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.30952256847" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.30952256847"
+                    Point2="0,20.30952256847"
+                    Point3="4,20.30952256847" />
+                  <mssgle:LineSegment
+                    End="229.476183617399,20.30952256847" />
+                  <mssgle:CubicBezierSegment
+                    Point1="229.476183617399,20.30952256847"
+                    Point2="233.476183617399,20.30952256847"
+                    Point3="233.476183617399,24.30952256847" />
+                  <mssgle:LineSegment
+                    End="233.476183617399,33.11904513694" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Extract Airline.Paths[Data Conversion Output]"
+          TopLeft="553.142840657916,204.619042156708">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-53.1428504330773,38.7142845605102"
+              Start="0,0"
+              End="-45.6428504330773,38.7142845605102">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-22.5714252165387,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5714252165387,0"
+                    Point2="-26.5714252165387,0"
+                    Point3="-26.5714252165387,4" />
+                  <mssgle:LineSegment
+                    End="-26.5714252165387,34.7142845605102" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-26.5714252165387,34.7142845605102"
+                    Point2="-26.5714252165387,38.7142845605102"
+                    Point3="-30.5714252165387,38.7142845605102" />
+                  <mssgle:LineSegment
+                    End="-45.6428504330773,38.7142845605102" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Extract Airline\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Extract Airline\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\DFT - Extract to Staging - Airport">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\DFT - Extract to Staging - Airport\OLE DB Destination"
+          TopLeft="125.624994384125,194.999990701676" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\DFT - Extract to Staging - Airport\OLE DB Source"
+          TopLeft="142.499993629754,36.3999982643128" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\DFT - Extract to Staging - Airport\Data Conversion"
+          TopLeft="298.124986672774,112.449994637966" />
+        <EdgeLayout
+          Id="Package\DFT - Extract to Staging - Airport.Paths[Data Conversion Output]"
+          TopLeft="376.791653339441,155.116661304633">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-165.166658955316,39.8833293970428"
+              Start="0,0"
+              End="-165.166658955316,32.3833293970428">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.9416646985214" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.9416646985214"
+                    Point2="0,19.9416646985214"
+                    Point3="-4,19.9416646985214" />
+                  <mssgle:LineSegment
+                    End="-161.166658955316,19.9416646985214" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-161.166658955316,19.9416646985214"
+                    Point2="-165.166658955316,19.9416646985214"
+                    Point3="-165.166658955316,23.9416646985214" />
+                  <mssgle:LineSegment
+                    End="-165.166658955316,32.3833293970428" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Extract to Staging - Airport.Paths[OLE DB Source Output]"
+          TopLeft="217.833326963087,79.0666649309795">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="158.958326376354,33.3833297069869"
+              Start="0,0"
+              End="158.958326376354,25.8833297069869">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.6916648534934" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.6916648534934"
+                    Point2="0,16.6916648534934"
+                    Point3="4,16.6916648534934" />
+                  <mssgle:LineSegment
+                    End="154.958326376354,16.6916648534934" />
+                  <mssgle:CubicBezierSegment
+                    Point1="154.958326376354,16.6916648534934"
+                    Point2="158.958326376354,16.6916648534934"
+                    Point3="158.958326376354,20.6916648534934" />
+                  <mssgle:LineSegment
+                    End="158.958326376354,25.8833297069869" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Extract to Staging - Airport\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Extract to Staging - Airport\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
     design-time-name="Package\DFT - Load to DWH (SCD Type 1)">
     <LayoutInfo>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="150.666666666667,42.6666666666667"
-          Id="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source"
-          TopLeft="238.166666666667,5.49999999999993" />
+          Size="164,42.6666666666667"
+          Id="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination"
+          TopLeft="5.50000000000006,313.5" />
         <NodeLayout
           Size="209.333333333334,42.6666666666667"
           Id="Package\DFT - Load to DWH (SCD Type 1)\Slowly Changing Dimension"
           TopLeft="208.833333333333,210.833333333333" />
+        <NodeLayout
+          Size="166.666666666667,42.6666666666667"
+          Id="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command"
+          TopLeft="230.166666666667,313.5" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source"
+          TopLeft="238.166666666667,5.49999999999993" />
+        <NodeLayout
+          Size="176,42.6666666666667"
+          Id="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command 1"
+          TopLeft="457.5,313.5" />
         <NodeLayout
           Size="157.333333333334,42.6666666666667"
           Id="Package\DFT - Load to DWH (SCD Type 1)\Data Conversion"
@@ -1357,32 +3901,6 @@ FROM dbo.stg_Airports</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DFT - Load to DWH (SCD Type 1).Paths[Data Conversion Output]"
-          TopLeft="313.5,150.833333333333">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60.0000000000001"
-              Start="0,0"
-              End="0,52.5000000000001">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5000000000001" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="164,42.6666666666667"
-          Id="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination"
-          TopLeft="5.50000000000006,313.5" />
         <EdgeLayout
           Id="Package\DFT - Load to DWH (SCD Type 1).Paths[New Output]"
           TopLeft="263.166666666667,253.5">
@@ -1419,10 +3937,6 @@ FROM dbo.stg_Airports</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="166.666666666667,42.6666666666667"
-          Id="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command"
-          TopLeft="230.166666666667,313.5" />
         <EdgeLayout
           Id="Package\DFT - Load to DWH (SCD Type 1).Paths[Inferred Member Updates Output]"
           TopLeft="313.5,253.5">
@@ -1447,10 +3961,28 @@ FROM dbo.stg_Airports</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="176,42.6666666666667"
-          Id="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Command 1"
-          TopLeft="457.5,313.5" />
+        <EdgeLayout
+          Id="Package\DFT - Load to DWH (SCD Type 1).Paths[Data Conversion Output]"
+          TopLeft="313.5,150.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.0000000000001"
+              Start="0,0"
+              End="0,52.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT - Load to DWH (SCD Type 1).Paths[Changing Attribute Updates Output]"
           TopLeft="363.833333333333,253.5">
@@ -1491,7 +4023,7 @@ FROM dbo.stg_Airports</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source">
+    design-time-name="Package\DFT - Load to DWH (SCD Type 1)\Insert Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1527,7 +4059,7 @@ FROM dbo.stg_Airports</property>
       &lt;ChangeType&gt;None&lt;/ChangeType&gt;
     &lt;/InputColumnToDBColumn&gt;
     &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[Copy of City]&lt;/IdentificationString&gt;
+      &lt;IdentificationString&gt;OLE DB Source.Outputs[OLE DB Source Output].Columns[City]&lt;/IdentificationString&gt;
       &lt;ColumnName&gt;City&lt;/ColumnName&gt;
       &lt;KeyType&gt;None&lt;/KeyType&gt;
       &lt;ChangeType&gt;None&lt;/ChangeType&gt;
@@ -1545,7 +4077,7 @@ FROM dbo.stg_Airports</property>
       &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
     &lt;/InputColumnToDBColumn&gt;
     &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Data Conversion.Outputs[Data Conversion Output].Columns[Copy of State]&lt;/IdentificationString&gt;
+      &lt;IdentificationString&gt;OLE DB Source.Outputs[OLE DB Source Output].Columns[State]&lt;/IdentificationString&gt;
       &lt;ColumnName&gt;State&lt;/ColumnName&gt;
       &lt;KeyType&gt;None&lt;/KeyType&gt;
       &lt;ChangeType&gt;None&lt;/ChangeType&gt;
@@ -1568,6 +4100,19 @@ FROM dbo.stg_Airports</property>
   &lt;DateVariable /&gt;
   &lt;EnableInferredSupport&gt;true&lt;/EnableInferredSupport&gt;
 &lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load to DWH (SCD Type 1)\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
