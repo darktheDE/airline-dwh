@@ -6,7 +6,10 @@
 ## 1. Mục tiêu (Objective)
 Xây dựng luồng ETL tự động để di chuyển dữ liệu từ hệ thống nguồn (OLTP) qua vùng đệm (Staging) và nạp vào kho dữ liệu (Data Warehouse). 
 - **Cơ chế áp dụng**: SCD Type 1 (Overwrite).
-- **Ý nghĩa**: Đảm bảo dữ liệu trong kho luôn cập nhật mới nhất theo nguồn. Nếu thông tin (tên sân bay, thành phố...) thay đổi ở nguồn, hệ thống sẽ ghi đè dữ liệu mới lên dữ liệu cũ tại DWH.
+- **Ý nghĩa**: Đảm bảo dữ liệu trong kho luôn cập nhật mới nhất theo nguồn. Nếu thông tin (tên sân bay, thành phố...) thay đổi ở nguồn, hệ thống sẽ ghi đè dữ liệu mới lên dữ liệu cũ tại DWH- [x] Task 11: Implement Fact_Turnaround_Efficiency (Accumulating Snapshot)
+    - [x] Create Stored Procedure `usp_ExtractTurnaround` with correct OLTP Schema
+    - [x] Handle Aircraft/Airport data mismatches using `LEFT JOIN` and `Unknown Member` logic
+    - [x] Batch load 10M+ rows successfully into `Fact_Turnaround_Efficiency`
 
 ## 2. Trạng thái Triển khai (Checklist)
 - [x] Tạo Staging tables (`stg_Airports`, `stg_Airlines`) - *Done (Task 3)*

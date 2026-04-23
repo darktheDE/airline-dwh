@@ -1,49 +1,92 @@
-# Tài liệu Hướng dẫn Triển khai Fact Table (Accumulating Snapshot)
-## Chủ đề: Tính toán Hiệu suất Quay đầu Máy bay (Fact Turnaround Efficiency)
+# Task 11: Executive Dashboard – Power BI + SSAS
+
+**Kết nối:** Live Connection → Server: `KIENHUNG` → Database: `Airline_Cube_Project`
 
 ---
 
-## 1. Mục tiêu (Objective)
-Xây dựng bảng Fact theo mô hình **Accumulating Snapshot** để theo dõi toàn bộ vòng đời của một quy trình quay đầu máy bay (từ lúc hạ cánh chuyến trước đến lúc cất cánh chuyến sau).
-- **Cơ chế nạp**: Trích xuất dữ liệu từ OLTP, tiền xử lý tại Staging và nạp vào DWH.
-- **Ý nghĩa**: Giúp hãng hàng không nhận diện các "điểm nghẽn" (Bottlenecks) tại các sân bay và tối ưu hóa thời gian sử dụng tàu bay.
+## 5. KHAI THÁC VÀ TRỰC QUAN HÓA (OLAP & VISUALIZATION)
 
-## 2. Quy trình triển khai chi tiết
+Dự án xây dựng **01 Executive Dashboard** duy nhất trên Power BI, thực hiện Live Connection đến SSAS Cube để trả lời 4 Insight chiến lược (sử dụng cả 3 loại bảng Fact):
 
-### Bước 1: Trích xuất & Kết hợp (Extract & Pair Flights)
-Do dữ liệu gốc `tb_Flights` là các dòng riêng lẻ, chúng ta cần ghép cặp (Pair) chuyến bay đến và chuyến bay đi kế tiếp của cùng một tàu bay.
-- **Công cụ**: Stored Procedure `usp_ExtractTurnaround`.
-- **Logic quan trọng**:
-    - Ghép cặp dựa trên `Tail_Number` (Số đuôi máy bay) và `Destination = Origin`.
-    - Chuyển đổi thời gian từ định dạng số (HHmm) sang `DATETIME` chuẩn để tính toán.
-    - Xử lý các chuyến bay quay đầu xuyên đêm (vắt qua ngày hôm sau).
+### INSIGHT 1 – Financial Loss & Delay by State (Fact_Flight_Transaction)
+**Business Question:** "Bang nào chịu thiệt hại tài chính và tổng thời gian chậm trễ lớn nhất?"
 
-### Bước 2: Nạp dữ liệu vào Kho (Load to DWH)
-Sử dụng `Execute SQL Task` hoặc `Data Flow` để chuyển dữ liệu từ Staging vào bảng Fact chính.
-
-#### 2.1. Xử lý dữ liệu không khớp (Data Integrity)
-> [!IMPORTANT]
-> **Bài học kinh nghiệm**: Trong thực tế, dữ liệu chuyến bay (Fact) thường chứa các mã máy bay hoặc sân bay mới chưa kịp cập nhật vào danh mục (Dimension).
-> - **Giải pháp an toàn**: Sử dụng **LEFT JOIN** thay vì INNER JOIN.
-> - **Xử lý NULL**: Sử dụng hàm `ISNULL(Key, -1)` để gán về thành phần **Unknown** thay vì loại bỏ dòng dữ liệu. Điều này đảm bảo bảng Fact luôn đầy đủ 100% số lượng chuyến bay.
-
-#### 2.2. Tính toán các chỉ số Hiệu suất (Metrics)
-- **Actual_Turnaround_Mins**: Khoảng thời gian thực tế giữa hai chuyến bay.
-- **Turnaround_Variance_Mins**: Hiệu số giữa thực tế và mục tiêu (ví dụ: mục tiêu là 45 phút).
-- **Is_Bottleneck**: Cờ đánh dấu 1 nếu thời gian quay đầu vượt quá ngưỡng cho phép (ví dụ: trễ hơn 30 phút so với mục tiêu).
-
-## 3. Hoạt động của hệ thống (How it works)
-1. **SSIS Package** gọi thủ tục `usp_ExtractTurnaround` để làm sạch và chuẩn bị dữ liệu tại Staging.
-2. Lệnh T-SQL thực hiện phép nối với các bảng Dimension (`Dim_Airport`, `Dim_Aircraft`, `Dim_Airline`, `Dim_Date`) để lấy các Surrogate Keys.
-3. Dữ liệu được nạp theo từng đợt (Batch) vào `Fact_Turnaround_Efficiency` để tối ưu tài nguyên máy chủ.
-
-## 4. Kiểm tra và Nghiệm thu (DoD)
-| Tiêu chí | Kết quả mong đợi |
-|----------|------------------|
-| **Khớp số lượng** | Số dòng trong Fact phải bằng số lượng cặp chuyến bay hợp lệ tại Staging. |
-| **Tính chính xác** | `Actual_Turnaround_Mins` phải đúng bằng chênh lệch thời gian cất/hạ cánh. |
-| **Tính toàn vẹn** | Không có dòng nào bị mất do lỗi không khớp Dimension (nhờ xử lý `-1`). |
+**Verify SQL:**
+```sql
+SELECT TOP 10 da.State,
+       SUM(f.Estimated_Financial_Loss_USD) AS TotalLoss,
+       SUM(f.Arr_Delay_Mins) AS TotalArrDelay
+FROM Fact_Flight_Transaction f
+JOIN Dim_Airport da ON f.DestAirportKey = da.AirportKey
+GROUP BY da.State ORDER BY TotalLoss DESC
+```
+**Power BI:** visual *Clustered Bar Chart*. Y-axis: `Dest Airport[State]`, X-axis: `Estimated Financial Loss USD`, `Arr Delay Mins`.
 
 ---
-> [!TIP]
-> **Mẹo triển khai**: Luôn sử dụng `(NOLOCK)` khi kiểm tra số lượng bản ghi trên bảng Fact lớn để tránh làm chậm hệ thống đang nạp dữ liệu.
+
+### INSIGHT 2 – Delay Root Cause Breakdown by Airline (Fact_Flight_Transaction)
+**Business Question:** "Nguyên nhân chậm trễ chính của từng hãng hàng không là gì?"
+
+**Verify SQL:**
+```sql
+SELECT dl.AirlineName, SUM(f.Weather_Delay_Mins) AS Weather, 
+       SUM(f.Carrier_Delay_Mins) AS Carrier, SUM(f.NAS_Delay_Mins) AS NAS,
+       SUM(f.LateAircraft_Delay_Mins) AS LateAircraft
+FROM Fact_Flight_Transaction f
+JOIN Dim_Airline dl ON f.AirlineKey = dl.AirlineKey
+WHERE f.Is_Delayed = 1 GROUP BY dl.AirlineName
+```
+**Power BI:** visual *Stacked Bar Chart*. Y-axis: `Dim Airline[Airline Name]`, X-axis: 4 loại delay measures (Weather, Carrier, NAS, Late Aircraft). Filter: `Is Delayed = True`.
+
+---
+
+### INSIGHT 3 – Monthly Fleet Activity & Delay Trend (Fact_Aircraft_Daily_Snapshot)
+**Business Question:** "Xu hướng lượng chuyến bay và tổng phút delay biến động thế nào qua các tháng (phân tích mức độ hoạt động đội tàu)?"
+*> Lưu ý: Sử dụng Date-based analysis do AircraftKey lookup lỗi.*
+
+**Verify SQL:**
+```sql
+SELECT dd.CalendarYear, dd.MonthName,
+       SUM(f.Daily_Flight_Count) AS TotalFlights,
+       SUM(f.Daily_Delay_Mins_Total) AS TotalDelayMins
+FROM Fact_Aircraft_Daily_Snapshot f
+JOIN Dim_Date dd ON f.DateKey = dd.DateKey
+GROUP BY dd.CalendarYear, dd.MonthNumber, dd.MonthName
+ORDER BY dd.MonthNumber
+```
+**Power BI:** visual *Line and Stacked Column Chart*. X-axis: `Dim Date[Month Name]`, Column: `Daily Flight Count`, Line: `Daily Delay Mins Total`.
+
+---
+
+### INSIGHT 4 – Total Turnaround Delay by City (Fact_Turnaround_Efficiency)
+**Business Question:** "Thành phố nào có tổng thời gian trễ quay đầu (Turnaround) tích lũy lớn nhất?"
+
+**Verify SQL:**
+```sql
+SELECT TOP 10 da.City, da.State,
+       SUM(f.Turnaround_Variance_Mins) AS TotalDelayMins
+FROM Fact_Turnaround_Efficiency f
+JOIN Dim_Airport da ON f.AirportKey = da.AirportKey
+GROUP BY da.City, da.State ORDER BY TotalDelayMins DESC
+```
+**Power BI:** visual *Bar Chart*. 
+- **Y-axis:** `Dim Airport[City]`
+- **X-axis:** `Turnaround Variance Mins` (Dùng mặc định là Sum)
+- **Title:** *"Top 10 Cities by Total Ground Turnaround Delay (Minutes)"*
+
+---
+
+## Bố cục Dashboard (2x2 Layout)
+
+| Insight 1 (Bar) | Insight 2 (Stacked Bar) |
+|-----------------|-------------------------|
+| **Insight 3 (Combo Chart)** | **Insight 4 (Table)** |
+
+**Slicers:** Thêm `Dim Date[Calendar Year]` và `Dim Date[Month Name]` để lọc toàn bộ báo cáo.
+
+## Checklist đạt điểm A (9-10)
+- [x] Dashboad kết nối Live SSAS (OLAP).
+- [x] Sử dụng đa dạng các bảng Fact (Transaction, Periodic Snapshot, Accumulating Snapshot).
+- [x] Có Slicer thời gian linh hoạt.
+- [x] Sử dụng Conditional Formatting thể hiện Bottleneck.
+- [x] Insights trả lời trực tiếp các vấn đề tổn thất tài chính và vận hành.

@@ -1,0 +1,65 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="5d65c49e-2bfc-455a-95d8-e8995b1bfd4e" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Airline DWH</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>Fact Aircraft Daily Snapshot</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="fbb98373-c83e-496e-9b06-aa80de731ab4">
+          <ID>Fact Aircraft Daily Snapshot</ID>
+          <Name>Fact Aircraft Daily Snapshot</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="959011a0-2f95-4fe2-b475-9c4c2fc9a623">
+            <DataSourceViewID>Airline DWH</DataSourceViewID>
+            <TableID>dbo_Fact_Aircraft_Daily_Snapshot</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Flight Transaction</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="f42ee03a-a408-4b68-a82a-6dbf902fba78">
+          <ID>Fact Flight Transaction</ID>
+          <Name>Fact Flight Transaction</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="95504038-135f-4859-9553-8b3345d0be82">
+            <DataSourceViewID>Airline DWH</DataSourceViewID>
+            <TableID>dbo_Fact_Flight_Transaction</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Turnaround Efficiency</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="aa018ba4-8e00-4663-8a8d-acae2d688962">
+          <ID>Fact Turnaround Efficiency</ID>
+          <Name>Fact Turnaround Efficiency</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="e8c089f7-be3a-40d3-bb0a-bfde532dbfaa">
+            <DataSourceViewID>Airline DWH</DataSourceViewID>
+            <TableID>dbo_Fact_Turnaround_Efficiency</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>

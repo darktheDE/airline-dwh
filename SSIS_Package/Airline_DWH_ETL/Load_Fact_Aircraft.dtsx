@@ -5,7 +5,7 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-O4NCH03"
   DTS:CreatorName="DESKTOP-O4NCH03\phantrongphu"
-  DTS:DTSID="{CD308240-960F-441B-B1CC-3F6C431E98A3}"
+  DTS:DTSID="{867C9DB6-53E9-49F3-BE9C-99FECCABF855}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1010.2"
   DTS:LocaleID="1033"
@@ -13,7 +13,7 @@
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
   DTS:VersionBuild="35"
-  DTS:VersionGUID="{6318CDDB-A1E1-4779-BA3D-EF53CE801839}">
+  DTS:VersionGUID="{D8BC70DA-D559-47FF-8936-A5BEDF5C708D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -22,7 +22,7 @@
       DTS:refId="Package\DFT - Extract to Staging - Aircraft"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{1901DCFF-9E10-47C9-B829-B08D51D0AD5F}"
+      DTS:DTSID="{CF331529-19A1-491D-94C5-59CD5A9B0ABC}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="DFT - Extract to Staging - Aircraft"
@@ -225,8 +225,8 @@
               <connections>
                 <connection
                   refId="Package\DFT - Extract to Staging - Aircraft\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:invalid"
-                  connectionManagerRefId="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:invalid"
+                  connectionManagerID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_Staging]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -423,8 +423,8 @@ FROM dbo.tb_Aircraft_Master</property>
               <connections>
                 <connection
                   refId="Package\DFT - Extract to Staging - Aircraft\OLE DB Source 1.Connections[OleDbConnection]"
-                  connectionManagerID="{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}:invalid"
-                  connectionManagerRefId="{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}:invalid"
+                  connectionManagerID="{DF577763-E14A-40BD-B3A2-44DCD8C7AC49}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_OLTP]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -702,7 +702,7 @@ FROM dbo.tb_Aircraft_Master</property>
       DTS:refId="Package\DFT - Load to DWH (SCD Type 2)"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
-      DTS:DTSID="{E6FB52F8-9A66-4F2D-AB7C-5BE2305E3582}"
+      DTS:DTSID="{9D41CC55-68C7-443C-8019-24A4FF142B71}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
       DTS:ObjectName="DFT - Load to DWH (SCD Type 2)"
@@ -1127,8 +1127,8 @@ FROM dbo.tb_Aircraft_Master</property>
               <connections>
                 <connection
                   refId="Package\DFT - Load to DWH (SCD Type 2)\Insert Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
-                  connectionManagerRefId="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1303,8 +1303,8 @@ FROM dbo.tb_Aircraft_Master</property>
               <connections>
                 <connection
                   refId="Package\DFT - Load to DWH (SCD Type 2)\OLE DB Command.Connections[OleDbConnection]"
-                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
-                  connectionManagerRefId="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1417,8 +1417,8 @@ FROM dbo.tb_Aircraft_Master</property>
               <connections>
                 <connection
                   refId="Package\DFT - Load to DWH (SCD Type 2)\OLE DB Command 1.Connections[OleDbConnection]"
-                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
-                  connectionManagerRefId="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1631,8 +1631,8 @@ FROM dbo.tb_Aircraft_Master</property>
               <connections>
                 <connection
                   refId="Package\DFT - Load to DWH (SCD Type 2)\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:invalid"
-                  connectionManagerRefId="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:invalid"
+                  connectionManagerID="{CF4880A4-97D0-4B56-A259-F73552DB41EC}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.Airline_Staging]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1895,8 +1895,8 @@ FROM dbo.tb_Aircraft_Master</property>
               <connections>
                 <connection
                   refId="Package\DFT - Load to DWH (SCD Type 2)\Slowly Changing Dimension.Connections[LookupConnection]"
-                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
-                  connectionManagerRefId="{E672A47B-07CC-41F2-9F79-E987A337530C}:invalid"
+                  connectionManagerID="{E672A47B-07CC-41F2-9F79-E987A337530C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[__SQLDEV.AirlineDWH]"
                   description="Defines the connection to use for lookups in the dimension table"
                   name="LookupConnection" />
               </connections>
@@ -2633,7 +2633,7 @@ FROM dbo.tb_Aircraft_Master</property>
       DTS:refId="Package\Execute SQL Task"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:DTSID="{235C147E-36C6-4860-9FE9-4016026D53D9}"
+      DTS:DTSID="{11BC50AC-AB5E-4D42-BF70-4C421D9C4520}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Execute SQL Task"
@@ -2649,7 +2649,7 @@ FROM dbo.tb_Aircraft_Master</property>
       DTS:refId="Package\Truncate Staging Aircraft"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:DTSID="{E49FEB4A-CAB5-4113-8E4A-F6926FCD5868}"
+      DTS:DTSID="{2D95153C-CABA-4095-A355-D657A1A145F6}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate Staging Aircraft"
@@ -2666,7 +2666,7 @@ FROM dbo.tb_Aircraft_Master</property>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{1EF297A3-54A0-40A8-808D-193327B8AFC2}"
+      DTS:DTSID="{AC526C9E-9B89-42AB-9FA3-22D8A5782942}"
       DTS:From="Package\Truncate Staging Aircraft"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
@@ -2674,7 +2674,7 @@ FROM dbo.tb_Aircraft_Master</property>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
-      DTS:DTSID="{EA77DFFA-4885-4A2B-B72A-8E2BD2D38F9D}"
+      DTS:DTSID="{848CAACA-78DC-4AB5-AB7A-0D9A556645AA}"
       DTS:From="Package\DFT - Extract to Staging - Aircraft"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
@@ -2682,7 +2682,7 @@ FROM dbo.tb_Aircraft_Master</property>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
-      DTS:DTSID="{20404589-297B-45FA-8B8B-998BE864A431}"
+      DTS:DTSID="{0C0C4AAB-3120-4CB5-83D4-4D973C4F3979}"
       DTS:From="Package\Execute SQL Task"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
