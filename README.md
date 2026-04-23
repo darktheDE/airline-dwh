@@ -68,15 +68,17 @@ The ETL process is built using **SQL Server Integration Services (SSIS)** with a
 
 * **Advanced SQL:** Utilized Window Functions (`LAG()`) in the staging phase to calculate turnaround durations.
 
-## 🧠 Analysis & Insights (SSAS & MDX)
+## 🧠 Analysis & Insights (SSAS & SQL)
 
-The **SSAS Multidimensional Cube** allows for complex analytical queries using **MDX**:
+The **SSAS Multidimensional Cube** provides the semantic layer for complex analytical queries. Business insights are delivered via **SQL** and visualized in Power BI:
 
-* **Financial Loss Analysis:** Identifying the highest-cost routes and carriers due to technical delays.
+* **Financial Loss by State:** Identifying which U.S. states incur the highest estimated financial losses and arrival delay minutes from `Fact_Flight_Transaction`.
 
-* **Maintenance Correlation:** Proving the relationship between aircraft age bands and the frequency of "Carrier Delays."
+* **Delay Root Cause by Airline:** Breaking down Weather, Carrier, NAS, and Late Aircraft delay minutes per airline to pinpoint each carrier's operational weaknesses.
 
-* **Hub Efficiency:** Ranking airports by "Turnaround Variance" to pinpoint operational bottlenecks.
+* **Monthly Fleet Activity Trend:** Tracking daily flight count vs. total delay minutes per month from `Fact_Aircraft_Daily_Snapshot` to reveal seasonal patterns.
+
+* **Turnaround Variance by City:** Ranking cities by cumulative ground turnaround delay from `Fact_Turnaround_Efficiency` to identify Ground Operations bottlenecks.
 
 ## 🚀 Tech Stack
 
