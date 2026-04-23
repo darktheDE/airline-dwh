@@ -73,33 +73,39 @@ _(Trình bày cơ chế bảng ETL_Watermark và biến Last_Load_Date)_.\
 
 * 3.5.4. Luồng xử lý Fact_Turnaround_Efficiency (Sử dụng SQL Window Function LAG() ở Staging).
 
-### CHƯƠNG 4: KHAI THÁC DỮ LIỆU - SSAS CUBE VÀ TRUY VẤN MDX
+### CHƯƠNG 4: KHAI THÁC DỮ LIỆU - SSAS CUBE VÀ TRUY VẤN SQL
 
-_(Chương này chứng minh Cube hoạt động tốt)_\
+_(Chương này chứng minh Cube hoạt động tốt và SQL giải quyết các bài toán kinh doanh)_\
 **4.1. Xây dựng Analysis Services Project (SSAS)**
 
 * 4.1.1. Khởi tạo Data Source View (DSV).
 
-* 4.1.2. Thiết lập Data Cube và Cấu hình Hierarchies.\
-  **4.2. Truy vấn MDX giải quyết Bài toán Kinh doanh**
+* 4.1.2. Thiết lập Data Cube và Cấu hình Hierarchies.
 
-* 4.2.1. Truy vấn 1: Top Sân bay và Hãng hàng không thiệt hại Tài chính lớn nhất.
+* 4.1.3. Triển khai và Xử lý (Deploy & Process).\
+  **4.2. Truy vấn SQL giải quyết Bài toán Kinh doanh**
 
-* 4.2.2. Truy vấn 2: Phân tích Tần suất sự cố kỹ thuật theo Nhóm tuổi máy bay.
+* 4.2.1. Insight 1: Financial Loss & Delay by State (Fact_Flight_Transaction).
 
-* 4.2.3. Truy vấn 3: Đánh giá thời gian chênh lệch Quay đầu (Turnaround Variance) tại các Hub lớn.
+* 4.2.2. Insight 2: Delay Root Cause Breakdown by Airline (Fact_Flight_Transaction).
+
+* 4.2.3. Insight 3: Monthly Fleet Activity & Delay Trend (Fact_Aircraft_Daily_Snapshot).
+
+* 4.2.4. Insight 4: Turnaround Delay by City (Fact_Turnaround_Efficiency).
 
 ### CHƯƠNG 5: TRỰC QUAN HÓA DỮ LIỆU (EXECUTIVE DASHBOARD)
 
 _(Chương này trình bày sản phẩm cuối cùng)_\
-**5.1. Thiết kế Executive Dashboard trên Power BI** (Giới thiệu layout và các Slicers).\
+**5.1. Thiết kế Executive Dashboard trên Power BI** (Giới thiệu layout 2x2 và các Slicers).\
 **5.2. Phân tích Chuyên sâu (Data Insights)**
 
-* 5.2.1. Insight về Hiệu suất Đúng giờ (OTP) và Thiệt hại Tài chính.
+* 5.2.1. Insight 1: Thiệt hại Tài chính và Tổng Delay theo Bang (Financial Loss & Arr Delay by State).
 
-* 5.2.2. Insight về Tình trạng Sức khỏe Máy bay (Asset Health).
+* 5.2.2. Insight 2: Hoạt động Đội tàu bay theo Tháng (Monthly Fleet Activity & Delay Trend).
 
-* 5.2.3. Insight về Tối ưu hóa Vận hành Mặt đất.
+* 5.2.3. Insight 3: Phân tích Nguyên nhân Chậm trễ theo Hãng (Delay Root Cause by Airline).
+
+* 5.2.4. Insight 4: Tổng Thời gian Quay đầu theo Thành phố (Turnaround Variance by City).
 
 ### CHƯƠNG 6: TỔNG KẾT
 
