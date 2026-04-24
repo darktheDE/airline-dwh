@@ -4,6 +4,8 @@ This project implements a comprehensive Data Warehouse (DWH) system designed to 
 
 ![System Architecture](Docs/SysArch.png)
 
+![Main Dashboard](Dashboard/main-dashboard.png)
+
 ## 📌 Project Overview
 
 The aviation industry incurs billions of dollars in losses annually due to flight delays and cancellations. This project moves beyond simple descriptive statistics by implementing a multidimensional model that correlates flight logs with aircraft age, engine types, and manufacturer data.
@@ -30,7 +32,7 @@ The system follows the **Kimball Lifecycle** methodology, utilizing a robust ETL
 6.  **Visualization (Power BI):** Executive dashboards for decision support.
 
 ## 🖼 Main Dashboard
-> **Path:** `Dashboard/MAIN-DASHBOARD.pdf` | **Tech:** Live Connection to SSAS (OLAP)
+**Tech:** Live Connection to SSAS (OLAP)
 
 The project features a high-performance **Executive Dashboard** that provides real-time insights derived from the multidimensional cube. It is designed to answer critical business questions across three different Fact grains:
 
@@ -126,5 +128,8 @@ This project was developed following **Scrum** principles across 4 Sprints:
 *   **Đỗ Kiến Hưng (23133030):** Project Lead, System Architecture, Incremental Load & CDC, ETL Fact_Flight_Transaction, SQL Insight Analytics & Power BI Dashboard.
 *   **Phan Trọng Phú (23133056):** Dataset Analysis, SCD Type 1 & Type 2 Mechanism, ETL Dim_Airport, Dim_Airline, Dim_Aircraft, ETL Fact_Turnaround_Efficiency.
 *   **Phan Trọng Quí (23133061):** OLTP & DWH Database Design, Kimball Bus Matrix & Dimensional Modeling, SSIS Project Configuration, ETL Dim_Date, Dim_Time, ETL Fact_Aircraft_Daily_Snapshot.
+
+---
+**Task contribution:** [Plane.so](https://sites.plane.so/issues/a203be26250d4345ac261041dca5f80b)
 
 
